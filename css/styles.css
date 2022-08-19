@@ -1,3 +1,10 @@
+
+/* Imports */
+
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+
+/* Styling */
+
 * {
     margin: 0;
     padding: 0;
@@ -26,8 +33,6 @@ body {
 }
 
 #left-aside, #right-aside  {
-    /* width: 100px;
-    height: 100px; */
     background-color: aliceblue;
 }
 
@@ -42,13 +47,34 @@ body {
 canvas {
     grid-area: canvas;
     border: 4px white solid;
-    background-color: mediumvioletred;
+    background-color: midnightblue;
 }
 
-.test {
-    width: 40px;
-    height: 40px;
+.startMenu {
+    text-align: center;
+    font-family: 'Fjalla One', sans-serif;
+    color: white;
+    background-color: midnightblue;
+    position: absolute;
+    top: 40%;
+    right: 30%;
+    transform: translate(-50%,-50%);
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    width: 'canvas.width';
+    height: 'canvas.height';
+    
+}
+
+button {
     background-color: white;
-    color: red;
-    z-index: 1;
+    color: midnightblue;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+}
+
+button:hover {
+    color: gold;
 }
