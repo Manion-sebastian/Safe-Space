@@ -6,7 +6,7 @@
 
 
 body {
-    background-color: black;
+    background-color: blue;
     height: 100vh;
     display: grid;
     justify-content: center;
@@ -42,5 +42,13 @@ body {
 canvas {
     grid-area: canvas;
     border: 4px white solid;
-    background-color: black;
+    background-color: mediumvioletred;
+}
+
+.test {
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    color: red;
+    z-index: 1;
 }
