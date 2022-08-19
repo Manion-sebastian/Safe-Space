@@ -4,6 +4,10 @@
 
 Safe Space is a modern take on the traditional Bullet hell. You play as the excitable young Dot, just trying to get home. Unfortunately Dot is trapped in a tower of shifting rows and columns. Does dot have what it takes to get home in one piece? Well thats entirely up to you! 
 
+### Planned Tech
+
+Vanilla Js, HTML, and CSS : Cavnas Project.
+
 ![Imgur](https://i.imgur.com/pOwvS0P.png)
 
 ### **MVP**
@@ -24,3 +28,8 @@ Safe Space is a modern take on the traditional Bullet hell. You play as the exci
 * Endless mode
 * Collapsing floors 
 * Dot gets a dash!
+
+### Potential Roadblocks 
+* Issues with clipping and refresh timers - potentially use a grid system for movement
+* Dot is too large for complex floor patterns - ask Dot how they feels about getting shrunk?
+* Gameplay loop is not rewarding, or fun - give Dot a gun, maybe a sword? 
