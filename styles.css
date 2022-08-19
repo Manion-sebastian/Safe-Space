@@ -1,0 +1,46 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    background-color: black;
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+
+.screen {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    background-color: wheat;
+    width: 80vw;
+    height: 'canvas.height';
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "left canvas right"
+}
+
+#left-aside, #right-aside  {
+    /* width: 100px;
+    height: 100px; */
+    background-color: aliceblue;
+}
+
+#left-aside {
+    grid-area: left;
+}
+
+#right-aside {
+    grid-area: right;
+}
+
+canvas {
+    grid-area: canvas;
+    border: 4px white solid;
+    background-color: black;
+}
