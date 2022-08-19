@@ -3,6 +3,7 @@
 // DOM Init Farm
 // Named
 
+// keep as farm until MVP is done, then consolidate into scopes. 
 const rightDisplay = document.querySelector('#right-aside')
 const leftDisplay = document.querySelector('#left-aside')
 const canvas = document.querySelector('canvas')
@@ -50,13 +51,14 @@ class Player {
     }
 }
 
+// was this needed?
 class Pillar extends Player {
     constructor(x, y, width, height, color) {
         super(x, y, width, height, color)
 
 
     }
-
+    // implement this working by tomorrow sat 20th 9pm.
     turnOn(color) {
         ctx.fillStyle = this.color
         ctx.fillRect(this.x, this.y, this.width, this.height)
@@ -90,22 +92,26 @@ function startOptions() {
     })
 
     mainMenuButton.addEventListener('click', () => {
+        // not working, dont know why. figure out tomorrow.
         startMenu.style.display = 'grid'
         instructionMenu.style.display = 'none'
         optionMenu.style.display = 'none'
     })
 }
 
+// can be done better
 function game() {
     setInterval(gameloop, 60)
 } 
 
+// should be init as anon inside game() not its own. 
 function gameloop() {
     ctx.clearRect(0,0, canvas.width, canvas.height)
     dot.render()
     // bob.render() 
 }
 
+// add diagonal movement. -- requires pythag. make an internal function to calculate.
 function movementHandler(e) {
     // const currentDirection = false dash
     const speed = 10
@@ -124,6 +130,27 @@ function movementHandler(e) {
             break
     }
     
+}
+
+// not adapted to this game currently. 
+
+function detectHit() {
+    // collision detection 
+        // dot has a constant check output of location. 
+        // to save on logic the collision could be determined at the point of init for the pillars
+        // x/y coord + width. check for each pillar on the field == should work. 
+            // pillar 1 spawns at x = 50 y = 0 width is 14px if dot is touching 50 - 50+14 dot is killed. 
+            // dont need a y coord for this type of syttem i would think.
+
+    // const ogreLeft = hero.x + hero.width >= ogre.x
+    // const ogreRight = hero.x <= ogre.x + ogre.width
+    // const ogreTop =  hero.y + hero.height >= ogre.y
+    // const ogreBottom = hero.y <= ogre.y + ogre.height
+    // console.log(ogreLeft, ogreRight, ogreTop, ogreBottom)
+    // if (ogreRight && ogreLeft && ogreTop && ogreBottom) {
+    //     ogre.alive = false
+    //     statusDisplay.innerText = 'You killed Shrek!'
+    // }
 }
 
 
