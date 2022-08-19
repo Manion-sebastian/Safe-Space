@@ -31,5 +31,5 @@ Vanilla Js, HTML, and CSS : Cavnas Project.
 
 ### Potential Roadblocks 
 * Issues with clipping and refresh timers - potentially use a grid system for movement
-* Dot is too large for complex floor patterns - ask Dot how they feels about getting shrunk?
+* Dot is too large for complex floor patterns - ask Dot how they feel about getting shrunk?
 * Gameplay loop is not rewarding, or fun - give Dot a gun, maybe a sword? 
