@@ -50,7 +50,7 @@ canvas {
     background-color: midnightblue;
 }
 
-.startMenu {
+.startMenu, .optionsMenu, .instructionsMenu {
     text-align: center;
     font-family: 'Fjalla One', sans-serif;
     color: white;
@@ -66,6 +66,19 @@ canvas {
     height: 'canvas.height';
     
 }
+
+.startMenu {
+    display: none;
+}
+
+.instructionsMenu{
+    display: none;
+}
+
+.optionsMenu {
+    display: none;
+}
+
 
 button {
     background-color: white;

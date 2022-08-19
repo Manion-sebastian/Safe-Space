@@ -7,10 +7,12 @@ const rightDisplay = document.querySelector('#right-aside')
 const leftDisplay = document.querySelector('#left-aside')
 const canvas = document.querySelector('canvas')
 const startMenu = document.querySelector('.startMenu')
+const optionMenu = document.querySelector('.optionsMenu')
+const instructionMenu = document.querySelector('.instructionsMenu')
 const startButton = document.getElementById('play')
 const optionButton = document.getElementById('options')
 const instructionButton = document.getElementById('inst')
-
+const mainMenuButton = document.querySelector('.mainMenuButton')
 
 // Anon
 
@@ -71,20 +73,26 @@ const dot = new Player(10, 10, 30, 30, 'white')
 // Named Functions 
 
 function startOptions() {
-    
+    startMenu.style.display = "grid"
     startButton.addEventListener('click', () => {
         startMenu.style.display = 'none'
         game()
     })
 
     optionButton.addEventListener('click', () => {
-        console.log('working')
-        // open options div
+        optionMenu.style.display = 'grid'
+        startMenu.style.display = 'none'
     })
 
     instructionButton.addEventListener('click', () => {
-        // opens instruction div
-        console.log('working')
+        instructionMenu.style.display = 'grid'
+        startMenu.style.display = 'none'
+    })
+
+    mainMenuButton.addEventListener('click', () => {
+        startMenu.style.display = 'grid'
+        instructionMenu.style.display = 'none'
+        optionMenu.style.display = 'none'
     })
 }
 
