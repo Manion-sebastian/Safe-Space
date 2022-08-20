@@ -34,10 +34,19 @@ body {
 
 #left-aside, #right-aside  {
     background-color: aliceblue;
+    display: grid;
+    justify-content: center;
+    align-items: center;
 }
 
 #left-aside {
     grid-area: left;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr .2fr;
+    grid-template-areas:    "phase"
+                            "level"
+                            'button'
+    
 }
 
 #right-aside {
@@ -75,8 +84,22 @@ canvas {
     display: none;
 }
 
+#asideMenuButton {
+    /* display: none; */
+    grid-area: button;
+}
+
+
 .optionsMenu {
     display: none;
+}
+
+.phase {
+    grid-area: phase;
+}
+
+.level {
+    grid-area: level;
 }
 
 

@@ -13,7 +13,8 @@ const instructionMenu = document.querySelector('.instructionsMenu')
 const startButton = document.getElementById('play')
 const optionButton = document.getElementById('options')
 const instructionButton = document.getElementById('inst')
-const mainMenuButton = document.querySelector('.mainMenuButton')
+const mainMenuButton = document.querySelector('#mainMenuButton')
+const asideMenuButton = document.querySelector('#asideMenuButton')
 
 // Anon
 
@@ -54,7 +55,8 @@ class Player {
 // was this needed?
 class Pillar extends Player {
     constructor(x, y, width, height, color) {
-        super(x, y, width, height, color)
+        super(x, y, width, height)
+        this.color = color
 
 
     }
@@ -69,15 +71,18 @@ class Pillar extends Player {
 
 // Object Init Farm
 
+const pillar1 = new Pillar(100, 0, 30, screen.height, 'red')
 const dot = new Player(10, 10, 30, 30, 'white')
 // const bob = new Player(50, 50, 20, 20, 'red') 
 
 // Named Functions 
 
 function startOptions() {
+    let inPlay = false
     startMenu.style.display = "grid"
     startButton.addEventListener('click', () => {
         startMenu.style.display = 'none'
+        inPlay = true
         game()
     })
 
@@ -90,30 +95,39 @@ function startOptions() {
         instructionMenu.style.display = 'grid'
         startMenu.style.display = 'none'
     })
-
-    mainMenuButton.addEventListener('click', () => {
-        // not working, dont know why. figure out tomorrow.
-        startMenu.style.display = 'grid'
-        instructionMenu.style.display = 'none'
-        optionMenu.style.display = 'none'
+    
+    const menuReturn = document.querySelectorAll('#mainMenuButton')
+    menuReturn.forEach( button => {
+        button.addEventListener('click', () => {
+            startMenu.style.display = 'grid'
+            instructionMenu.style.display = 'none'
+            optionMenu.style.display = 'none'
+        })
     })
+    
 }
-
-// can be done better
+// maybe a pause function
 function game() {
-    setInterval(gameloop, 60)
+    const game = setInterval(gameloop, 60)
+    asideMenuButton.addEventListener('click', () => {
+        ctx.clearRect(0,0, canvas.width, canvas.height)
+        clearInterval(game)
+        startMenu.style.display = 'grid'
+        
+    })
 } 
 
-// should be init as anon inside game() not its own. 
+
 function gameloop() {
     ctx.clearRect(0,0, canvas.width, canvas.height)
     dot.render()
-    // bob.render() 
+    pillar1.render()
+    // detectHit(dot, pillar1)
 }
 
-// add diagonal movement. -- requires pythag. make an internal function to calculate.
+// add diagonal movement. -- requires pythag. make an internal function to calculate. STRETCH
 function movementHandler(e) {
-    // const currentDirection = false dash
+    // const currentDirection = false dash STRETCH
     const speed = 10
     switch (e.key) {
         case('w'):
@@ -134,7 +148,7 @@ function movementHandler(e) {
 
 // not adapted to this game currently. 
 
-function detectHit() {
+// function detectHit(player, enemy) {
     // collision detection 
         // dot has a constant check output of location. 
         // to save on logic the collision could be determined at the point of init for the pillars
@@ -151,7 +165,23 @@ function detectHit() {
     //     ogre.alive = false
     //     statusDisplay.innerText = 'You killed Shrek!'
     // }
-}
+
+//     const playerY = this.player.y + this.player.height
+//     const playerX = this.player.x + this.player.width
+
+//     const pillarY = this.enemy.y + this.enemy.height
+//     const pillarX = this.enemy.x + this.enemy.width
+
+//     if (playerY >= this.Pillar.y && playerY <= pillarY) {
+//         if (playerX >= this.Pillar.x && playerX <= pillarX) {
+//             this.Player.alive = false
+            
+//         }
+//     }
+//     if(this.Player.alive = false) {
+//         console.log('working, dot is dead.')
+//     }
+// }
 
 
 
