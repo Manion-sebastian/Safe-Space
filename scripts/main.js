@@ -52,28 +52,10 @@ class Player {
     }
 }
 
-// was this needed?
-class Pillar extends Player {
-    constructor(x, y, width, height, color) {
-        super(x, y, width, height)
-        this.color = color
-
-
-    }
-    // implement this working by tomorrow sat 20th 9pm.
-    turnOn(color) {
-        ctx.fillStyle = this.color
-        ctx.fillRect(this.x, this.y, this.width, this.height)
-        ableToKill = true
-
-    }
-}
 
 // Object Init Farm
 
-const pillar1 = new Pillar(100, 0, 30, screen.height, 'red')
 const dot = new Player(10, 10, 30, 30, 'white')
-// const bob = new Player(50, 50, 20, 20, 'red') 
 
 // Named Functions 
 
@@ -108,11 +90,12 @@ function startOptions() {
 }
 // maybe a pause function
 function game() {
-    const game = setInterval(gameloop, 60)
+    const game = setInterval(gameloop, 50)
     asideMenuButton.addEventListener('click', () => {
         ctx.clearRect(0,0, canvas.width, canvas.height)
         clearInterval(game)
         startMenu.style.display = 'grid'
+        
         
     })
 } 
@@ -121,8 +104,26 @@ function game() {
 function gameloop() {
     ctx.clearRect(0,0, canvas.width, canvas.height)
     dot.render()
-    pillar1.render()
+    // dangerZone(3,3)
     // detectHit(dot, pillar1)
+}
+
+function dangerZone(columns, rows) {
+    let xSpace = screen.width/columns
+    let ySpace = screen.height/rows
+    let columnCountInc = 1
+    let rowCountInc = 1
+    for (let i = 0; i < columns; i++) {
+        ctx.fillStyle = 'yellow'
+        ctx.fillRect(Math.floor(Math.random() * (xSpace * columnCountInc)), 0, 20, screen.height )
+        columnCountInc++
+        
+    }
+    for (let j = 0; j < rows; j++) {
+        ctx.fillStyle = 'yellow'
+        ctx.fillRect(0, Math.floor(Math.random() * (ySpace * rowCountInc)), screen.width, 20)
+    }
+    
 }
 
 // add diagonal movement. -- requires pythag. make an internal function to calculate. STRETCH
