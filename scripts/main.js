@@ -19,9 +19,9 @@ const asideMenuButton = document.querySelector('#asideMenuButton')
 // Anon
 
 document.addEventListener('keydown', movementHandler)
-// canvas.addEventListener('click', (e) => {
-//     console.log(e.offsetX, e.offsetY)
-// })
+canvas.addEventListener('click', (e) => {
+    console.log(e.offsetX, e.offsetY)
+})
 
 // Canvas Init
 
@@ -108,20 +108,21 @@ function gameloop() {
     // detectHit(dot, pillar1)
 }
 
-function dangerZone(columns, rows) {
-    let xSpace = screen.width/columns
-    let ySpace = screen.height/rows
-    let columnCountInc = 1
-    let rowCountInc = 1
+function dangerZone(columns, rows, color) {
+    let xSpace = canvas.width/columns
+    let ySpace = canvas.height/rows
+    let columnCountInc = 0
+    let rowCountInc = 0
     for (let i = 0; i < columns; i++) {
-        ctx.fillStyle = 'yellow'
-        ctx.fillRect(Math.floor(Math.random() * (xSpace * columnCountInc)), 0, 20, screen.height )
+        ctx.fillStyle = color
+        ctx.fillRect(Math.floor(Math.random() * xSpace + (xSpace * columnCountInc)), 0, 20, canvas.height )
         columnCountInc++
         
     }
     for (let j = 0; j < rows; j++) {
-        ctx.fillStyle = 'yellow'
-        ctx.fillRect(0, Math.floor(Math.random() * (ySpace * rowCountInc)), screen.width, 20)
+        ctx.fillStyle = color
+        ctx.fillRect(0, Math.floor(Math.random() * ySpace + (ySpace * rowCountInc)), canvas.width, 20)
+        rowCountInc++
     }
     
 }
@@ -190,4 +191,5 @@ function movementHandler(e) {
 
 document.addEventListener('DOMContentLoaded', () => {
     startOptions()
+    dangerZone(9, 9, 'red')
 })
