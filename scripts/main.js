@@ -85,7 +85,19 @@ function startOptions() {
         startMenu.style.display = 'none'
         dangerZone(1, 1, 'yellow')
         animate()
-        timer(3)
+        setTimeout(() => {
+            pillars.forEach(pillar => {
+                pillar.color = 'red'
+            })
+
+        }, 3000)
+        // timer(3)
+        // setTimeout(() => {
+        //     for (let i = 0; i < pillars.length; i++) {
+        //         pillars.pop()
+        //     }
+        //     dangerZone(2, 3, 'yellow')
+        // }, 10000)
     })
 
     optionButton.addEventListener('click', () => {
@@ -127,6 +139,8 @@ function animate() {
     pillars.forEach(pillar => {
         pillar.render()
     })
+    
+
 }
 
 function dangerZone(columns, rows, color) {
