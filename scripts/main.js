@@ -2,8 +2,6 @@
 
 // DOM Init Farm
 // Named
-
-// keep as farm until MVP is done, then consolidate into scopes. 
 const rightDisplay = document.querySelector('#right-aside')
 const leftDisplay = document.querySelector('#left-aside')
 const canvas = document.querySelector('canvas')
@@ -22,6 +20,7 @@ let interactX = []
 let interactY = []
 let inPlay = false
 let round = 1
+let speed = 9
 
 // Anon
 
@@ -34,11 +33,6 @@ canvas.addEventListener('click', (e) => {
 // Canvas Init
 
 const ctx = canvas.getContext('2d')
-// canvas.setAttribute('height', getComputedStyle(canvas)['height'])
-// canvas.setAttribute('width', getComputedStyle(canvas)['width'])
-// Hardcoded size for now. -- would like to be reactive soon. 
-// canvas.width = innerWidth
-// canvas.height = innerHeight
 canvas.width = 600
 canvas.height = 400
 
@@ -66,12 +60,6 @@ class Pillar extends Player {
     constructor(x,y,width,height,color) {
         super(x,y,width,height,color)
     }
-
-    update() {
-        this.render()
-        // if time is up 
-        //change color
-    }
 }
 
 // Object Init Farm
@@ -86,8 +74,7 @@ function startOptions() {
     startMenu.style.display = "grid"
     startButton.addEventListener('click', () => {
         startMenu.style.display = 'none'
-        animate()
-        levelHandler(round)
+        gameStart()
     })
 
     optionButton.addEventListener('click', () => {
@@ -112,12 +99,27 @@ function startOptions() {
 } 
 
 function animate() {
-    requestAnimationFrame(animate)
-    ctx.clearRect(0,0,canvas.width,canvas.height)
-    dot.render()
-    pillars.forEach(pillar => {
-        pillar.render()
-    })
+    if(inPlay) {
+        requestAnimationFrame(animate)
+        ctx.clearRect(0,0,canvas.width,canvas.height)
+        dot.render()
+        pillars.forEach(pillar => {
+            pillar.render()
+        })
+
+    }
+
+    if(!dot.alive) {
+        setTimeout(() => {
+        inPlay = false
+        ctx.clearRect(0,0,canvas.width,canvas.height)
+        round = 1
+        startOptions()
+
+        }, 1500)
+        
+    }
+    
     
 
 }
@@ -171,25 +173,26 @@ function timer(secs) {
     let time = secs * 1000
     setTimeout(() => {
         pillars.forEach(pillar => {
-            isHit()
+            
             pillar.color = 'red'
+            speed = 0
+            isHit()
         })
         setTimeout(() => {
             if(dot.alive) {
+                speed = 9
                 nextRound()
             }
         }, secs + 1000)
 
     }, time)
-
-
     
 }
 
 // add diagonal movement. -- requires pythag. make an internal function to calculate. STRETCH
 function movementHandler(e) {
     // const currentDirection = false dash STRETCH
-    let speed = 9
+    
     if (!dot.alive) {
         speed = 0
     }
@@ -211,43 +214,52 @@ function movementHandler(e) {
 }
 
 function levelHandler() {
-    switch(round) {
-        case(1):
-        dangerZone(3,0)
-        timer(5)
-            break
-        case(2):
-        dangerZone(4,0)
-        timer(4)
-            break
-        case(3):
-        dangerZone(5,0)
-        timer(3)
-            break
-        case(4):
-        dangerZone(5,3)
-        timer(5)
-            break
-        case(5):
-        dangerZone(5,4)
-        timer(4)
-            break
-        case(6):
-        dangerZone(5,5)
-        timer(3)
-            break
-        case(7):
-        dangerZone(6,6)
-        timer(5)
-            break
-        case(8):
-        dangerZone(7,7)
-        timer(4)
-            break
-        case(9):
-        dangerZone(8,8)
-        timer(3)
-            break
+    if(dot.alive){
+
+        switch(round) {
+            case(1):
+            dangerZone(3,0)
+            timer(5)
+                break
+            case(2):
+            dangerZone(4,0)
+            timer(4)
+                break
+            case(3):
+            dangerZone(5,0)
+            timer(3)
+                break
+            case(4):
+            dangerZone(5,3)
+            timer(5)
+                break
+            case(5):
+            dangerZone(5,4)
+            timer(4)
+                break
+            case(6):
+            dangerZone(5,5)
+            timer(3)
+                break
+            case(7):
+            dangerZone(6,6)
+            timer(5)
+                break
+            case(8):
+            dangerZone(7,7)
+            timer(4)
+                break
+            case(9):
+            dangerZone(8,8)
+            timer(3)
+                break
+            case(10):
+            inPlay = false
+            ctx.clearRect(0,0,canvas.width,canvas.height)
+            round = 1
+            // startOptions()
+                break
+        }
     }
 }
 
@@ -263,18 +275,40 @@ function zonePush(start, end, axis) {
 }
 
 function isHit() {
-    for (let i = dot.x; i < dot.x + dot.width; i++) {
-        if(interactX.includes(i)) {
-            console.log('Hit x')
-            dot.alive = false
+
+        for (let i = dot.x; i < dot.x + dot.width; i++) {
+            if(interactX.includes(i)) {
+                // console.log('Hit x')
+                dot.alive = false
+                return
+                
+            }
+        }
+        for (let i = dot.y; i < dot.y + dot.height; i++) {
+            if(interactY.includes(i)) {
+                // console.log('Hit y')
+                dot.alive = false
+                return
+                
+            }
         }
     }
-    for (let i = dot.y; i < dot.y + dot.height; i++) {
-        if(interactY.includes(i)) {
-            console.log('Hit y')
-            dot.alive = false
-        }
-    }
+
+function gameStart() {
+    inPlay = true
+    dot.alive = true
+    animate()
+    levelHandler(round)
+}
+
+function gameOver() {
+    inPlay = false
+    pillars = []
+    interactX = []
+    interactY = 
+    ctx.clearRect(0,0,canvas.width,canvas.height)
+    round = 1
+    // startMenu.style.display = 'grid'
 }
 
 
