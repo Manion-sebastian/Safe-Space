@@ -15,7 +15,12 @@ const optionButton = document.getElementById('options')
 const instructionButton = document.getElementById('inst')
 const mainMenuButton = document.querySelector('#mainMenuButton')
 const asideMenuButton = document.querySelector('#asideMenuButton')
+const seconds = document.querySelector('#seconds')
+const tSecs = document.querySelector('#tenthOfSecond')
+const hSecs = document.querySelector('#hundOfSecs')
 
+const pillars = []
+let inPlay = false
 // Anon
 
 document.addEventListener('keydown', movementHandler)
@@ -29,6 +34,8 @@ const ctx = canvas.getContext('2d')
 // canvas.setAttribute('height', getComputedStyle(canvas)['height'])
 // canvas.setAttribute('width', getComputedStyle(canvas)['width'])
 // Hardcoded size for now. -- would like to be reactive soon. 
+// canvas.width = innerWidth
+// canvas.height = innerHeight
 canvas.width = 600
 canvas.height = 400
 
@@ -52,6 +59,18 @@ class Player {
     }
 }
 
+class Pillar extends Player {
+    constructor(x,y,width,height,color) {
+        super(x,y,width,height,color)
+    }
+
+    update() {
+        this.render()
+        // if time is up 
+        //change color
+    }
+}
+
 
 // Object Init Farm
 
@@ -59,13 +78,14 @@ const dot = new Player(10, 10, 30, 30, 'white')
 
 // Named Functions 
 
+
 function startOptions() {
-    let inPlay = false
     startMenu.style.display = "grid"
     startButton.addEventListener('click', () => {
         startMenu.style.display = 'none'
-        inPlay = true
-        game()
+        dangerZone(1, 1, 'yellow')
+        animate()
+        timer(3)
     })
 
     optionButton.addEventListener('click', () => {
@@ -90,10 +110,8 @@ function startOptions() {
 }
 // maybe a pause function
 function game() {
-    const game = setInterval(gameloop, 50)
     asideMenuButton.addEventListener('click', () => {
         ctx.clearRect(0,0, canvas.width, canvas.height)
-        clearInterval(game)
         startMenu.style.display = 'grid'
         
         
@@ -101,11 +119,14 @@ function game() {
 } 
 
 
-function gameloop() {
-    ctx.clearRect(0,0, canvas.width, canvas.height)
+function animate() {
+    inPlay = true
+    requestAnimationFrame(animate)
+    ctx.clearRect(0,0,canvas.width,canvas.height)
     dot.render()
-    // dangerZone(3,3)
-    // detectHit(dot, pillar1)
+    pillars.forEach(pillar => {
+        pillar.render()
+    })
 }
 
 function dangerZone(columns, rows, color) {
@@ -114,17 +135,50 @@ function dangerZone(columns, rows, color) {
     let columnCountInc = 0
     let rowCountInc = 0
     for (let i = 0; i < columns; i++) {
-        ctx.fillStyle = color
-        ctx.fillRect(Math.floor(Math.random() * xSpace + (xSpace * columnCountInc)), 0, 20, canvas.height )
+        const x = Math.floor(Math.random() * xSpace + (xSpace * columnCountInc))
+        const y = 0
+        const width = 20
+        const height = canvas.height
+        pillars.push(new Pillar(x,y,width,height,color))
         columnCountInc++
+    
         
     }
     for (let j = 0; j < rows; j++) {
-        ctx.fillStyle = color
-        ctx.fillRect(0, Math.floor(Math.random() * ySpace + (ySpace * rowCountInc)), canvas.width, 20)
+        const x = 0
+        const y = Math.floor(Math.random() * ySpace + (ySpace * rowCountInc))
+        const width = canvas.width
+        const height = 20
+        pillars.push(new Pillar(x,y,width,height,color))
         rowCountInc++
     }
     
+}
+
+function timer(length) {
+    let ticks = 0
+    let tocks = 0
+    let tonk = 0
+    let seconds = length
+    let decSec = length * 10
+    let hunSec = length * 100
+    setInterval(() => {
+        ticks++
+        if (ticks % 10 === 0) {
+            tocks++
+        }
+        if (tocks % 10 === 0) {
+            tonk++
+        }
+
+        seconds.innerText = seconds
+        tSecs.innerText = decSec
+        hSecs.innerText = hunSec
+    }, 10)
+
+    if(seconds === 0 && decSec === 0 && hunSec === 0) {
+        console.log('time up')
+    }
 }
 
 // add diagonal movement. -- requires pythag. make an internal function to calculate. STRETCH
@@ -150,46 +204,9 @@ function movementHandler(e) {
 
 // not adapted to this game currently. 
 
-// function detectHit(player, enemy) {
-    // collision detection 
-        // dot has a constant check output of location. 
-        // to save on logic the collision could be determined at the point of init for the pillars
-        // x/y coord + width. check for each pillar on the field == should work. 
-            // pillar 1 spawns at x = 50 y = 0 width is 14px if dot is touching 50 - 50+14 dot is killed. 
-            // dont need a y coord for this type of syttem i would think.
-
-    // const ogreLeft = hero.x + hero.width >= ogre.x
-    // const ogreRight = hero.x <= ogre.x + ogre.width
-    // const ogreTop =  hero.y + hero.height >= ogre.y
-    // const ogreBottom = hero.y <= ogre.y + ogre.height
-    // console.log(ogreLeft, ogreRight, ogreTop, ogreBottom)
-    // if (ogreRight && ogreLeft && ogreTop && ogreBottom) {
-    //     ogre.alive = false
-    //     statusDisplay.innerText = 'You killed Shrek!'
-    // }
-
-//     const playerY = this.player.y + this.player.height
-//     const playerX = this.player.x + this.player.width
-
-//     const pillarY = this.enemy.y + this.enemy.height
-//     const pillarX = this.enemy.x + this.enemy.width
-
-//     if (playerY >= this.Pillar.y && playerY <= pillarY) {
-//         if (playerX >= this.Pillar.x && playerX <= pillarX) {
-//             this.Player.alive = false
-            
-//         }
-//     }
-//     if(this.Player.alive = false) {
-//         console.log('working, dot is dead.')
-//     }
-// }
-
-
 
 // Headache Reducer. :)
 
 document.addEventListener('DOMContentLoaded', () => {
     startOptions()
-    dangerZone(9, 9, 'red')
 })
