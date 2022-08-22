@@ -24,6 +24,7 @@ let round = 1
 let speed = 9
 let level = 0
 let phase = 0
+let endless = false
 
 
 // Anon
@@ -73,6 +74,7 @@ const dot = new Player(randomX, randomY, 30, 30, 'white')
 
 // Named Functions 
 
+// start screen.
 
 function startOptions() {
     startMenu.style.display = "grid"
@@ -102,6 +104,8 @@ function startOptions() {
     
 } 
 
+// animation Loop.
+
 function animate() {
     if(inPlay) {
         requestAnimationFrame(animate)
@@ -128,6 +132,8 @@ function animate() {
     
 
 }
+
+// creates and pushes columns to screen and to their array for coll testing.
 
 function dangerZone(columns, rows) {
     let xSpace = canvas.width/columns
@@ -158,6 +164,8 @@ function dangerZone(columns, rows) {
     
 }
 
+// calls next round.
+
 function nextRound() {
     round++
     pillars = []
@@ -165,6 +173,8 @@ function nextRound() {
     interactY = []
     levelHandler()
 }
+
+// timer function, updates phase and level as well. 
 
 function timer(secs) {
     phaseUpdate.innerText = phase
@@ -196,10 +206,9 @@ function timer(secs) {
     
 }
 
-// add diagonal movement. -- requires pythag. make an internal function to calculate. STRETCH
-function movementHandler(e) {
-    // const currentDirection = false dash STRETCH
-    
+// handles the movement of character. 
+
+function movementHandler(e) {    
     if (!dot.alive) {
         speed = 0
     }
@@ -219,6 +228,8 @@ function movementHandler(e) {
     }
     
 }
+
+// handles flow of game. 
 
 function levelHandler() {
     if(dot.alive){
@@ -268,6 +279,9 @@ function levelHandler() {
             timer(4)
                 break
             case(9):
+            if(endless) {
+                round = 8
+            }
             level++
             dangerZone(8,8)
             timer(3)
@@ -327,7 +341,6 @@ function gameOver() {
     interactY = 
     ctx.clearRect(0,0,canvas.width,canvas.height)
     round = 1
-    // startMenu.style.display = 'grid'
 }
 
 
