@@ -17,13 +17,18 @@ const mainMenuButton = document.querySelector('#mainMenuButton')
 const asideMenuButton = document.querySelector('#asideMenuButton')
 const seconds = document.querySelector('#seconds')
 
-const pillars = []
+let pillars = []
+let interactX = []
+let interactY = []
 let inPlay = false
+let round = 1
+
 // Anon
 
 document.addEventListener('keydown', movementHandler)
 canvas.addEventListener('click', (e) => {
     console.log(e.offsetX, e.offsetY)
+    console.log(round)
 })
 
 // Canvas Init
@@ -69,7 +74,6 @@ class Pillar extends Player {
     }
 }
 
-
 // Object Init Farm
 const randomX = Math.floor(Math.random() * 300) + 100
 const randomY = Math.floor(Math.random() * 200) + 50
@@ -82,22 +86,8 @@ function startOptions() {
     startMenu.style.display = "grid"
     startButton.addEventListener('click', () => {
         startMenu.style.display = 'none'
-        dangerZone(8, 8)
         animate()
-        timer(3)
-        setTimeout(() => {
-            pillars.forEach(pillar => {
-                pillar.color = 'red'
-            })
-
-        }, 5000)
-        // timer(3)
-        // setTimeout(() => {
-        //     for (let i = 0; i < pillars.length; i++) {
-        //         pillars.pop()
-        //     }
-        //     dangerZone(2, 3, 'yellow')
-        // }, 10000)
+        levelHandler(round)
     })
 
     optionButton.addEventListener('click', () => {
@@ -119,20 +109,9 @@ function startOptions() {
         })
     })
     
-}
-// maybe a pause function
-function game() {
-    asideMenuButton.addEventListener('click', () => {
-        ctx.clearRect(0,0, canvas.width, canvas.height)
-        startMenu.style.display = 'grid'
-        
-        
-    })
 } 
 
-
 function animate() {
-    inPlay = true
     requestAnimationFrame(animate)
     ctx.clearRect(0,0,canvas.width,canvas.height)
     dot.render()
@@ -155,6 +134,7 @@ function dangerZone(columns, rows) {
         const width = 10
         const height = canvas.height
         pillars.push(new Pillar(x,y,width,height,color))
+        zonePush(x, x+width, 'x')
         columnCountInc++
     
         
@@ -165,9 +145,18 @@ function dangerZone(columns, rows) {
         const width = canvas.width
         const height = 10
         pillars.push(new Pillar(x,y,width,height,color))
+        zonePush(y, y+height, 'y' )
         rowCountInc++
     }
     
+}
+
+function nextRound() {
+    round++
+    pillars = []
+    interactX = []
+    interactY = []
+    levelHandler()
 }
 
 function timer(secs) {
@@ -179,6 +168,20 @@ function timer(secs) {
             clearInterval(countDown)
         }
     }, 1000)
+    let time = secs * 1000
+    setTimeout(() => {
+        pillars.forEach(pillar => {
+            isHit()
+            pillar.color = 'red'
+        })
+        setTimeout(() => {
+            if(dot.alive) {
+                nextRound()
+            }
+        }, secs + 1000)
+
+    }, time)
+
 
     
 }
@@ -186,7 +189,10 @@ function timer(secs) {
 // add diagonal movement. -- requires pythag. make an internal function to calculate. STRETCH
 function movementHandler(e) {
     // const currentDirection = false dash STRETCH
-    const speed = 9
+    let speed = 9
+    if (!dot.alive) {
+        speed = 0
+    }
     switch (e.key) {
         case('w'):
             dot.y -= speed
@@ -203,8 +209,6 @@ function movementHandler(e) {
     }
     
 }
-
-// rough outline for zoning and timing, will implement later. 
 
 function levelHandler() {
     switch(round) {
@@ -247,7 +251,31 @@ function levelHandler() {
     }
 }
 
-// not adapted to this game currently. 
+
+function zonePush(start, end, axis) {
+    for (let i = start; i <= end; i++) {
+        if (axis === 'x') {
+            interactX.push(i)
+        } else if (axis === 'y') {
+            interactY.push(i)
+        }
+    }
+}
+
+function isHit() {
+    for (let i = dot.x; i < dot.x + dot.width; i++) {
+        if(interactX.includes(i)) {
+            console.log('Hit x')
+            dot.alive = false
+        }
+    }
+    for (let i = dot.y; i < dot.y + dot.height; i++) {
+        if(interactY.includes(i)) {
+            console.log('Hit y')
+            dot.alive = false
+        }
+    }
+}
 
 
 // Headache Reducer. :)
