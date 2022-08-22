@@ -12,8 +12,9 @@ const startButton = document.getElementById('play')
 const optionButton = document.getElementById('options')
 const instructionButton = document.getElementById('inst')
 const mainMenuButton = document.querySelector('#mainMenuButton')
-const asideMenuButton = document.querySelector('#asideMenuButton')
 const seconds = document.querySelector('#seconds')
+const phaseUpdate = document.getElementById('phase')
+const levelUpdate = document.getElementById('level')
 
 let pillars = []
 let interactX = []
@@ -21,6 +22,9 @@ let interactY = []
 let inPlay = false
 let round = 1
 let speed = 9
+let level = 0
+let phase = 0
+
 
 // Anon
 
@@ -111,10 +115,11 @@ function animate() {
 
     if(!dot.alive) {
         setTimeout(() => {
-        inPlay = false
-        ctx.clearRect(0,0,canvas.width,canvas.height)
-        round = 1
-        startOptions()
+        // inPlay = false
+        // ctx.clearRect(0,0,canvas.width,canvas.height)
+        // round = 1
+        // startOptions()
+        location.reload()
 
         }, 1500)
         
@@ -162,6 +167,8 @@ function nextRound() {
 }
 
 function timer(secs) {
+    phaseUpdate.innerText = phase
+    levelUpdate.innerText = level
     seconds.innerText = secs
     const countDown = setInterval(() => {
         secs--
@@ -218,38 +225,50 @@ function levelHandler() {
 
         switch(round) {
             case(1):
+            phase++
+            level++
             dangerZone(3,0)
             timer(5)
                 break
             case(2):
+            level++
             dangerZone(4,0)
             timer(4)
                 break
             case(3):
+            level++
             dangerZone(5,0)
             timer(3)
                 break
             case(4):
+            phase++
+            level = 1
             dangerZone(5,3)
             timer(5)
                 break
             case(5):
+            level++
             dangerZone(5,4)
             timer(4)
                 break
             case(6):
+            level++
             dangerZone(5,5)
             timer(3)
                 break
             case(7):
+            phase++
+            level = 1
             dangerZone(6,6)
             timer(5)
                 break
             case(8):
+            level++
             dangerZone(7,7)
             timer(4)
                 break
             case(9):
+            level++
             dangerZone(8,8)
             timer(3)
                 break
@@ -257,7 +276,7 @@ function levelHandler() {
             inPlay = false
             ctx.clearRect(0,0,canvas.width,canvas.height)
             round = 1
-            // startOptions()
+            location.reload()
                 break
         }
     }

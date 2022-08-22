@@ -25,34 +25,10 @@ body {
     display: grid;
     justify-content: center;
     align-content: center;
-    background-color: wheat;
-    width: 80vw;
-    height: 'canvas.height';
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
-    grid-template-areas: "left canvas right"
-}
-
-#left-aside, #right-aside  {
-    background-color: aliceblue;
-    display: grid;
-    justify-content: center;
-    align-items: center;
-}
-
-#left-aside {
-    grid-area: left;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr .2fr;
-    grid-template-areas:    "phase"
-                            "level"
-                            'button'
     
+
 }
 
-#right-aside {
-    grid-area: right;
-}
 
 canvas {
     grid-area: canvas;
@@ -85,22 +61,8 @@ canvas {
     display: none;
 }
 
-#asideMenuButton {
-    /* display: none; */
-    grid-area: button;
-}
-
-
 .optionsMenu {
     display: none;
-}
-
-.phase {
-    grid-area: phase;
-}
-
-.level {
-    grid-area: level;
 }
 
 
@@ -114,4 +76,18 @@ button {
 
 button:hover {
     color: gold;
+}
+
+.info {
+    color: white;
+    width: 600;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.pDiv, .tDiv, .lDiv {
+    padding: 10px;
 }
