@@ -16,8 +16,6 @@ const instructionButton = document.getElementById('inst')
 const mainMenuButton = document.querySelector('#mainMenuButton')
 const asideMenuButton = document.querySelector('#asideMenuButton')
 const seconds = document.querySelector('#seconds')
-const tSecs = document.querySelector('#tenthOfSecond')
-const hSecs = document.querySelector('#hundOfSecs')
 
 const pillars = []
 let inPlay = false
@@ -73,8 +71,9 @@ class Pillar extends Player {
 
 
 // Object Init Farm
-
-const dot = new Player(10, 10, 30, 30, 'white')
+const randomX = Math.floor(Math.random() * 300) + 100
+const randomY = Math.floor(Math.random() * 200) + 50
+const dot = new Player(randomX, randomY, 30, 30, 'white')
 
 // Named Functions 
 
@@ -83,14 +82,15 @@ function startOptions() {
     startMenu.style.display = "grid"
     startButton.addEventListener('click', () => {
         startMenu.style.display = 'none'
-        dangerZone(1, 1, 'yellow')
+        dangerZone(8, 8)
         animate()
+        timer(3)
         setTimeout(() => {
             pillars.forEach(pillar => {
                 pillar.color = 'red'
             })
 
-        }, 3000)
+        }, 5000)
         // timer(3)
         // setTimeout(() => {
         //     for (let i = 0; i < pillars.length; i++) {
@@ -143,15 +143,16 @@ function animate() {
 
 }
 
-function dangerZone(columns, rows, color) {
+function dangerZone(columns, rows) {
     let xSpace = canvas.width/columns
     let ySpace = canvas.height/rows
     let columnCountInc = 0
     let rowCountInc = 0
+    let color = 'rgba(112,112,112,0.4)'
     for (let i = 0; i < columns; i++) {
         const x = Math.floor(Math.random() * xSpace + (xSpace * columnCountInc))
         const y = 0
-        const width = 20
+        const width = 10
         const height = canvas.height
         pillars.push(new Pillar(x,y,width,height,color))
         columnCountInc++
@@ -162,43 +163,30 @@ function dangerZone(columns, rows, color) {
         const x = 0
         const y = Math.floor(Math.random() * ySpace + (ySpace * rowCountInc))
         const width = canvas.width
-        const height = 20
+        const height = 10
         pillars.push(new Pillar(x,y,width,height,color))
         rowCountInc++
     }
     
 }
 
-function timer(length) {
-    let ticks = 0
-    let tocks = 0
-    let tonk = 0
-    let seconds = length
-    let decSec = length * 10
-    let hunSec = length * 100
-    setInterval(() => {
-        ticks++
-        if (ticks % 10 === 0) {
-            tocks++
+function timer(secs) {
+    seconds.innerText = secs
+    const countDown = setInterval(() => {
+        secs--
+        seconds.innerText = secs
+        if (secs === 0) {
+            clearInterval(countDown)
         }
-        if (tocks % 10 === 0) {
-            tonk++
-        }
+    }, 1000)
 
-        seconds.innerText = seconds
-        tSecs.innerText = decSec
-        hSecs.innerText = hunSec
-    }, 10)
-
-    if(seconds === 0 && decSec === 0 && hunSec === 0) {
-        console.log('time up')
-    }
+    
 }
 
 // add diagonal movement. -- requires pythag. make an internal function to calculate. STRETCH
 function movementHandler(e) {
     // const currentDirection = false dash STRETCH
-    const speed = 10
+    const speed = 9
     switch (e.key) {
         case('w'):
             dot.y -= speed
@@ -214,6 +202,49 @@ function movementHandler(e) {
             break
     }
     
+}
+
+// rough outline for zoning and timing, will implement later. 
+
+function levelHandler() {
+    switch(round) {
+        case(1):
+        dangerZone(3,0)
+        timer(5)
+            break
+        case(2):
+        dangerZone(4,0)
+        timer(4)
+            break
+        case(3):
+        dangerZone(5,0)
+        timer(3)
+            break
+        case(4):
+        dangerZone(5,3)
+        timer(5)
+            break
+        case(5):
+        dangerZone(5,4)
+        timer(4)
+            break
+        case(6):
+        dangerZone(5,5)
+        timer(3)
+            break
+        case(7):
+        dangerZone(6,6)
+        timer(5)
+            break
+        case(8):
+        dangerZone(7,7)
+        timer(4)
+            break
+        case(9):
+        dangerZone(8,8)
+        timer(3)
+            break
+    }
 }
 
 // not adapted to this game currently. 
