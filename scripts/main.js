@@ -201,7 +201,7 @@ function dangerZone(columns, rows) {
     for (let i = 0; i < columns; i++) {
         const x = Math.floor(Math.random() * xSpace + (xSpace * columnCountInc))
         const y = 0
-        const width = 10
+        const width = 30
         const height = canvas.height
         pillars.push(new Pillar(x,y,width,height,color))
         zonePush(x, x+width, 'x')
@@ -213,7 +213,7 @@ function dangerZone(columns, rows) {
         const x = 0
         const y = Math.floor(Math.random() * ySpace + (ySpace * rowCountInc))
         const width = canvas.width
-        const height = 10
+        const height = 30
         pillars.push(new Pillar(x,y,width,height,color))
         zonePush(y, y+height, 'y' )
         rowCountInc++
