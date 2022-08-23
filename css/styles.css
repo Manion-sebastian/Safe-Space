@@ -14,7 +14,9 @@
 
 body {
     font-family: sans-serif;
-    background-color: blue;
+    /* background-color: #03002e; */
+    background-image: url('https://opengameart.org/sites/default/files/image5.jpg');
+    background-size: contain;
     height: 100vh;
     display: grid;
     justify-content: center;
@@ -33,11 +35,11 @@ body {
 
 canvas {
     grid-area: canvas;
-    border: 4px white solid;
+    border: 4px gold solid; 
     background-color: midnightblue;
 }
 
-.startMenu, .optionsMenu, .instructionsMenu {
+.startMenu, .optionsMenu, .instructionsMenu, .winScreen {
     text-align: center;
     font-family: 'Fjalla One', sans-serif;
     color: white;
@@ -66,6 +68,10 @@ canvas {
 
 .optionsMenu {
     
+    display: none;
+}
+
+.winScreen {
     display: none;
 }
 

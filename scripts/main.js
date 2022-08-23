@@ -2,8 +2,6 @@
 
 // DOM Init Farm
 // Named
-const rightDisplay = document.querySelector('#right-aside')
-const leftDisplay = document.querySelector('#left-aside')
 const canvas = document.querySelector('canvas')
 const startMenu = document.querySelector('.startMenu')
 const optionMenu = document.querySelector('.optionsMenu')
@@ -15,17 +13,77 @@ const mainMenuButton = document.querySelector('#mainMenuButton')
 const seconds = document.querySelector('#seconds')
 const phaseUpdate = document.getElementById('phase')
 const levelUpdate = document.getElementById('level')
+const winScreen = document.querySelector('.winScreen')
+const playAgain = document.getElementById('pAgainBtn')
 
 let pillars = []
 let interactX = []
 let interactY = []
 let inPlay = false
 let round = 1
-let speed = 9
+let speed = 15
 let level = 0
 let phase = 0
+
+// Deathless
+let deathless = false
+
+const dSpan = document.querySelector('.dSpan') 
+
+dSpan.addEventListener('click', () => {
+    if (!deathless) {
+        deathless = true
+        dSpan.innerText = 'ON'
+        dSpan.style.color = 'gold'
+    } else if (deathless) {
+        deathless = false
+        dSpan.innerText = 'OFF'
+        dSpan.style.color = 'white'
+    }
+
+})
+
+// Endless
 let endless = false
 
+const eSpan = document.querySelector('.eSpan') 
+
+eSpan.addEventListener('click', () => {
+    if (!endless) {
+        endless = true
+        eSpan.innerText = 'ON'
+        eSpan.style.color = 'gold'
+    } else if (endless) {
+        endless = false
+        eSpan.innerText = 'OFF'
+        eSpan.style.color = 'white'
+    }
+
+})
+
+// Audio
+let audioOn = true
+
+const mSpan = document.querySelector('.mSpan')
+mSpan.addEventListener('click', () => {
+    if (audioOn) {
+        audioOn = false 
+        mSpan.innerText = 'OFF'
+        mSpan.style.color = 'gold'
+    } else if (!audioOn) {
+        audioOn = true
+        mSpan.innerText = 'ON'
+        mSpan.style.color = 'white'
+    }
+    
+})
+
+// https://opengameart.org/content/theremin-laser-sfx
+let laserDown = new Audio('media/sounds/Smooth 7.wav')
+let laserActivate = new Audio('media/sounds/Space 5.wav')
+let playerKilled = new Audio('media/sounds/Space 1.wav')
+// https://opengameart.org/content/victory-2
+let victory = new Audio('media/sounds/Victory!.wav')
 
 // Anon
 
@@ -119,10 +177,6 @@ function animate() {
 
     if(!dot.alive) {
         setTimeout(() => {
-        // inPlay = false
-        // ctx.clearRect(0,0,canvas.width,canvas.height)
-        // round = 1
-        // startOptions()
         location.reload()
 
         }, 1500)
@@ -136,11 +190,14 @@ function animate() {
 // creates and pushes columns to screen and to their array for coll testing.
 
 function dangerZone(columns, rows) {
+    if (audioOn) {
+        laserDown.play()
+    }
     let xSpace = canvas.width/columns
     let ySpace = canvas.height/rows
     let columnCountInc = 0
     let rowCountInc = 0
-    let color = 'rgba(112,112,112,0.4)'
+    let color = 'rgba(255,215,0,0.4)'
     for (let i = 0; i < columns; i++) {
         const x = Math.floor(Math.random() * xSpace + (xSpace * columnCountInc))
         const y = 0
@@ -190,8 +247,10 @@ function timer(secs) {
     let time = secs * 1000
     setTimeout(() => {
         pillars.forEach(pillar => {
-            
             pillar.color = 'red'
+            if (audioOn) {
+                laserActivate.play()
+            }
             speed = 0
             isHit()
         })
@@ -233,7 +292,6 @@ function movementHandler(e) {
 
 function levelHandler() {
     if(dot.alive){
-
         switch(round) {
             case(1):
             phase++
@@ -290,13 +348,13 @@ function levelHandler() {
             inPlay = false
             ctx.clearRect(0,0,canvas.width,canvas.height)
             round = 1
-            location.reload()
+            winScreenStart()
                 break
         }
     }
 }
 
-
+// pushes to array for checking
 function zonePush(start, end, axis) {
     for (let i = start; i <= end; i++) {
         if (axis === 'x') {
@@ -307,11 +365,14 @@ function zonePush(start, end, axis) {
     }
 }
 
+// detects whether or not player is hit
 function isHit() {
-
         for (let i = dot.x; i < dot.x + dot.width; i++) {
             if(interactX.includes(i)) {
                 // console.log('Hit x')
+                if (audioOn) {
+                    playerKilled.play()
+                }
                 dot.alive = false
                 return
                 
@@ -320,6 +381,9 @@ function isHit() {
         for (let i = dot.y; i < dot.y + dot.height; i++) {
             if(interactY.includes(i)) {
                 // console.log('Hit y')
+                if (audioOn) {
+                    playerKilled.play()
+                }
                 dot.alive = false
                 return
                 
@@ -327,6 +391,7 @@ function isHit() {
         }
     }
 
+// starts game
 function gameStart() {
     inPlay = true
     dot.alive = true
@@ -334,15 +399,16 @@ function gameStart() {
     levelHandler(round)
 }
 
-function gameOver() {
-    inPlay = false
-    pillars = []
-    interactX = []
-    interactY = 
-    ctx.clearRect(0,0,canvas.width,canvas.height)
-    round = 1
+// pulls up win wscreen
+function winScreenStart() {
+    if (audioOn) {
+        victory.play()
+    }
+    winScreen.style.display = 'grid'
+    playAgain.addEventListener('click', () => {
+        location.reload()
+    })
 }
-
 
 // Headache Reducer. :)
 
