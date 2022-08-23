@@ -15,6 +15,7 @@ const phaseUpdate = document.getElementById('phase')
 const levelUpdate = document.getElementById('level')
 const winScreen = document.querySelector('.winScreen')
 const playAgain = document.getElementById('pAgainBtn')
+const statBar = document.querySelector('.info')
 
 // let for init convenience -- i know its dangerous
 let pillars = []
@@ -157,6 +158,7 @@ let dot = new Player(randomX, randomY, 30, 30, 'white')
 // start screen.
 
 function startOptions() {
+    statBar.style.display = 'none'
     startMenu.style.display = "grid"
     startButton.addEventListener('click', () => {
         startMenu.style.display = 'none'
@@ -179,10 +181,27 @@ function startOptions() {
             startMenu.style.display = 'grid'
             instructionMenu.style.display = 'none'
             optionMenu.style.display = 'none'
+            winScreen.style.display = 'none'
+            
         })
     })
     
 } 
+
+// pulls up win wscreen
+function winScreenStart() {
+    if (audioOn) {
+        victory.play()
+    }
+    winScreen.style.display = 'grid'
+    phaseUpdate.innerText = 0
+    levelUpdate.innerText = 0
+    statBar.style.display = 'none'
+    playAgain.addEventListener('click', () => {
+        winScreen.style.display = 'none'
+        gameStart()
+    })
+}
 
 // animation Loop.
 
@@ -430,21 +449,13 @@ function gameStart() {
     dot = new Player(randomX, randomY, 30, 30, 'white')
     inPlay = true
     dot.alive = true
+    statBar.style.display = 'flex'
     animate()
     levelHandler(round)
+
 }
 
-// pulls up win wscreen
-function winScreenStart() {
-    if (audioOn) {
-        victory.play()
-    }
-    winScreen.style.display = 'grid'
-    playAgain.addEventListener('click', () => {
-        winScreen.style.display = 'none'
-        gameStart()
-    })
-}
+
 
 
 // Headache Reducer. :)
