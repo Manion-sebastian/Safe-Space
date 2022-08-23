@@ -16,6 +16,7 @@ const levelUpdate = document.getElementById('level')
 const winScreen = document.querySelector('.winScreen')
 const playAgain = document.getElementById('pAgainBtn')
 
+// let for init convenience -- i know its dangerous
 let pillars = []
 let interactX = []
 let interactY = []
@@ -125,13 +126,11 @@ class Pillar extends Player {
     }
 }
 
-// Object Init Farm
-const randomX = Math.floor(Math.random() * 300) + 100
-const randomY = Math.floor(Math.random() * 200) + 50
-const dot = new Player(randomX, randomY, 30, 30, 'white')
 
 // Named Functions 
-
+let randomX = Math.floor(Math.random() * 300) + 100
+let randomY = Math.floor(Math.random() * 200) + 50
+let dot = new Player(randomX, randomY, 30, 30, 'white')
 // start screen.
 
 function startOptions() {
@@ -168,22 +167,18 @@ function animate() {
     if(inPlay) {
         requestAnimationFrame(animate)
         ctx.clearRect(0,0,canvas.width,canvas.height)
-        dot.render()
         pillars.forEach(pillar => {
             pillar.render()
         })
-
-    }
-
-    if(!dot.alive) {
-        setTimeout(() => {
-        location.reload()
-
-        }, 1500)
-        
-    }
+        dot.render()
+        if(!dot.alive) {
+            setTimeout(() => {
+            location.reload()
     
-    
+            }, 1500)
+            
+        }
+    }
 
 }
 
@@ -397,6 +392,16 @@ function isHit() {
 
 // starts game
 function gameStart() {
+    pillars = []
+    interactX = []
+    interactY = []
+    level = 0
+    phase = 0
+    round = 1
+    speed = 15
+    randomX = Math.floor(Math.random() * 300) + 100
+    randomY = Math.floor(Math.random() * 200) + 50
+    dot = new Player(randomX, randomY, 30, 30, 'white')
     inPlay = true
     dot.alive = true
     animate()
@@ -410,9 +415,11 @@ function winScreenStart() {
     }
     winScreen.style.display = 'grid'
     playAgain.addEventListener('click', () => {
-        location.reload()
+        winScreen.style.display = 'none'
+        gameStart()
     })
 }
+
 
 // Headache Reducer. :)
 
