@@ -120,17 +120,20 @@ class Player {
     }
 }
 
+// for naming purposes, has no diff from player.
 class Pillar extends Player {
     constructor(x,y,width,height,color) {
         super(x,y,width,height,color)
     }
 }
 
-
-// Named Functions 
+// dot init for gameloop.
 let randomX = Math.floor(Math.random() * 300) + 100
 let randomY = Math.floor(Math.random() * 200) + 50
 let dot = new Player(randomX, randomY, 30, 30, 'white')
+
+// Named Functions 
+
 // start screen.
 
 function startOptions() {
@@ -175,8 +178,8 @@ function animate() {
             setTimeout(() => {
             location.reload()
     
-            }, 1500)
-            
+            }, 1500) 
+
         }
     }
 
@@ -201,8 +204,8 @@ function dangerZone(columns, rows) {
         pillars.push(new Pillar(x,y,width,height,color))
         zonePush(x, x+width, 'x')
         columnCountInc++
-    
-        
+
+
     }
     for (let j = 0; j < rows; j++) {
         const x = 0
@@ -213,7 +216,7 @@ function dangerZone(columns, rows) {
         zonePush(y, y+height, 'y' )
         rowCountInc++
     }
-    
+
 }
 
 // calls next round.
@@ -257,7 +260,7 @@ function timer(secs) {
         }, secs + 1000)
 
     }, time)
-    
+
 }
 
 // handles the movement of character. 
