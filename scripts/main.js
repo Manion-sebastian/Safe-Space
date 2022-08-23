@@ -370,10 +370,12 @@ function isHit() {
         for (let i = dot.x; i < dot.x + dot.width; i++) {
             if(interactX.includes(i)) {
                 // console.log('Hit x')
-                if (audioOn) {
-                    playerKilled.play()
+                if (!deathless) {
+                    if (audioOn) {
+                        playerKilled.play()
+                    }
+                    dot.alive = false
                 }
-                dot.alive = false
                 return
                 
             }
@@ -381,10 +383,12 @@ function isHit() {
         for (let i = dot.y; i < dot.y + dot.height; i++) {
             if(interactY.includes(i)) {
                 // console.log('Hit y')
-                if (audioOn) {
-                    playerKilled.play()
+                if (!deathless) {
+                    if (audioOn) {
+                        playerKilled.play()
+                    }
+                    dot.alive = false
                 }
-                dot.alive = false
                 return
                 
             }
