@@ -57,12 +57,11 @@ canvas {
     
 }
 
-.startMenu {
-    
+.startMenu, .instructionsMenu, .optionsMenu, .winScreen {
     display: none;
 }
 
-.instructionsMenu{
+/* .instructionsMenu{
     
     display: none;
 }
@@ -70,10 +69,11 @@ canvas {
 .optionsMenu {
     
     display: none;
-}
+} */
 
 .winScreen {
-    display: none;
+    /* display: none; */
+    padding: 10px;
 }
 
 

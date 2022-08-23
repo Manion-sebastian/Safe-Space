@@ -258,7 +258,7 @@ function dangerZone(columns, rows) {
 
 }
 
-// calls next round.
+// calls next round. clears old data.
 
 function nextRound() {
     round++
