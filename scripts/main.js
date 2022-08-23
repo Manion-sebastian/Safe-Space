@@ -26,6 +26,26 @@ let speed = 15
 let level = 0
 let phase = 0
 
+// Diff Mod
+let difficulty = 1
+let timeScale = 1
+const diffSpan = document.querySelector('.diffSpan')
+diffSpan.addEventListener('click', () => {
+    
+    if (difficulty === 1) {
+        timeScale = .5
+        diffSpan.innerText = 'HARD'
+        diffSpan.style.color = 'gold'
+    }
+    if (difficulty === 2) {
+        timeScale = 1
+        diffSpan.innerText = 'NORMAL'
+        diffSpan.style.color = 'white'
+    }
+
+})
+
+
 // Deathless
 let deathless = false
 
@@ -273,6 +293,9 @@ function movementHandler(e) {
         case('w'):
             dot.y -= speed
             break
+        case('w' && 'space'):
+            dot.y -= speed + 20
+            break
         case('a'):
             dot.x -= speed
             break
@@ -295,44 +318,44 @@ function levelHandler() {
             phase++
             level++
             dangerZone(3,0)
-            timer(5)
+            timer(Math.floor(timeScale * 5))
                 break
             case(2):
             level++
             dangerZone(4,0)
-            timer(4)
+            timer(Math.floor(timeScale * 4))
                 break
             case(3):
             level++
             dangerZone(5,0)
-            timer(3)
+            timer(Math.floor(timeScale * 3))
                 break
             case(4):
             phase++
             level = 1
             dangerZone(5,3)
-            timer(5)
+            timer(Math.floor(timeScale * 5))
                 break
             case(5):
             level++
             dangerZone(5,4)
-            timer(4)
+            timer(Math.floor(timeScale * 4))
                 break
             case(6):
             level++
             dangerZone(5,5)
-            timer(3)
+            timer(Math.floor(timeScale * 3))
                 break
             case(7):
             phase++
             level = 1
             dangerZone(6,6)
-            timer(5)
+            timer(Math.floor(timeScale * 5))
                 break
             case(8):
             level++
             dangerZone(7,7)
-            timer(4)
+            timer(Math.floor(timeScale * 4))
                 break
             case(9):
             if(endless) {
@@ -340,7 +363,7 @@ function levelHandler() {
             }
             level++
             dangerZone(8,8)
-            timer(3)
+            timer(Math.floor(timeScale * 3))
                 break
             case(10):
             inPlay = false
