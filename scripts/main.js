@@ -58,20 +58,20 @@ darkSpan.addEventListener('click', () => {
 
 
 // Diff Mod
-let difficulty = 1
+let difficulty = false
 let timeScale = 1
 const diffSpan = document.querySelector('.diffSpan')
 diffSpan.addEventListener('click', () => {
-    
-    if (difficulty === 1) {
+    if (!difficulty) {
         timeScale = .5
         diffSpan.innerText = 'HARD'
         diffSpan.style.color = 'gold'
-    }
-    if (difficulty === 2) {
+        difficulty = true
+    } else if (difficulty) {
         timeScale = 1
         diffSpan.innerText = 'NORMAL'
         diffSpan.style.color = 'white'
+        difficulty = false
     }
 
 })
@@ -505,3 +505,18 @@ function softGameStart() {
 document.addEventListener('DOMContentLoaded', () => {
     startOptions()
 })
+
+
+let loops = 0
+
+function gameLOop() {
+    animate(gameLOop)
+    loops++
+}
+
+function drawPictureLoop() {
+    if (loops%2 === 0) {
+        // do current logic
+        
+    }
+}

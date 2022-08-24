@@ -38,20 +38,14 @@ canvas {
     grid-area: canvas;
     border: 4px gold solid; 
     background-color: midnightblue;
-    /* background-image: url('https://img.freepik.com/premium-vector/art-deco-seamless-pattern-design_1319-807.jpg'); */
-    /* background-image: url('https://img.freepik.com/premium-vector/art-deco-seamless-pattern_1319-1043.jpg'); */
-    /* background-image: url('https://t3.ftcdn.net/jpg/03/26/10/84/400_F_326108487_5QmrbKA6b2MeeDAvzzwSP6Of9QdbE8oA.jpg'); */
-    /* background-image: url('https://opengameart.org/sites/default/files/styles/medium/public/WhiteMarble_COLOR.jpg'); */
-    /* background-image: url('https://opengameart.org/sites/default/files/styles/medium/public/Marble%20tile%20beige_0.png'); */
+
 }
 
 
 .startMenu, .optionsMenu, .instructionsMenu, .winScreen {
     text-align: center;
     font-family: 'Fjalla One', sans-serif;
-    /* color: midnightblue; */
     color: white;
-    /* background-color: midnightblue; */
     position: absolute;
     left: 0;
     right: 0;
@@ -69,8 +63,6 @@ canvas {
 button {
     background-color: white;
     color: midnightblue;
-    /* background-color: midnightblue; */
-    /* color: white; */
     font-size: 20px;
     font-weight: bold;
     border: none;
@@ -78,7 +70,7 @@ button {
 }
 
 
-button:hover {
+button:hover,:focus {
     color: gold;
 }
 
@@ -108,4 +100,20 @@ button:hover {
 
 .pDiv, .tDiv, .lDiv {
     padding: 10px;
+}
+
+.topBtn {
+    border-radius: 10px 10px 0 0;
+}
+
+.btmBtn {
+    border-radius: 0 0 10px 10px;
+}
+
+.sngBtn {
+    border-radius: 10px;
+}
+
+.topBtn, .sngBtn {
+    margin-top: 20px;
 }
