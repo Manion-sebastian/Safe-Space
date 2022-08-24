@@ -28,10 +28,11 @@ let level = 0
 let phase = 0
 
 
+
 // Darkmode
 let beamInitColor = 'rgba(255,215,0,0.4)'
 let beamActColor = 'red'
-let dotColor = 'white'
+let dotColor = 'rgba(0,0,0,0)'
 let darkMode = false
 
 const darkSpan = document.querySelector('.darkSpan')
@@ -183,6 +184,11 @@ let randomX = Math.floor(Math.random() * 300) + 100
 let randomY = Math.floor(Math.random() * 200) + 50
 let dot = new Player(randomX, randomY, 30, 30, dotColor)
 
+// sprite
+
+let dotPicture = new Image()
+dotPicture.src = 'media/art/playerSprite.png'
+
 // Named Functions 
 
 // start screen.
@@ -240,6 +246,7 @@ function animate() {
         requestAnimationFrame(animate)
         ctx.clearRect(0,0,canvas.width,canvas.height)
         dot.render()
+        ctx.drawImage(dotPicture, 0, 0, 32, 32, dot.x, dot.y, 32, 32)
         pillars.forEach(pillar => {
             pillar.render()
         })
