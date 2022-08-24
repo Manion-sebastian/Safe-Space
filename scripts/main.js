@@ -41,7 +41,6 @@ darkSpan.addEventListener('click', () => {
         darkMode = true
         darkSpan.innerText = 'ON'
         darkSpan.style.color = 'gold'
-        dotColor = 'gold'
         beamInitColor = 'rgba(255,255,255,0.4)'
         beamActColor = 'red'
         canvas.style.backgroundColor = 'black'
@@ -51,7 +50,6 @@ darkSpan.addEventListener('click', () => {
         darkSpan.style.color = 'white'
         beamInitColor = 'rgba(255,215,0,0.4)'
         beamActColor = 'red'
-        dotColor = 'white'
         canvas.style.backgroundColor = 'midnightBlue'
 
     }
@@ -253,7 +251,6 @@ function animate() {
         if(!dot.alive) {
             setTimeout(() => {
             location.reload()
-            
     
             }, 1500) 
 
@@ -487,20 +484,27 @@ function gameStart() {
     dot.alive = true
     statBar.style.display = 'flex'
     animate()
-    levelHandler(round)
+    levelHandler()
 
 }
 
 function softGameStart() {
-    pillars = []
-    interactX = []
-    interactY = []
-    level = 0
-    phase = 0
-    round = 1
-    speed = 15
+    // pillars = []
+    // interactX = []
+    // interactY = []
+    // level = 0
+    // phase = 0
+    // round = 1
+    // speed = 15
     inPlay = false
+    // randomX = Math.floor(Math.random() * 300) + 100
+    // randomY = Math.floor(Math.random() * 200) + 50
+    // dot = new Player(randomX, randomY, 30, 30, dotColor)
+    // inPlay = true
+    // dot.alive = true
+    // statBar.style.display = 'flex'
     ctx.clearRect(0,0,canvas.width,canvas.height)
+    startOptions()
     
 }
 
@@ -512,18 +516,3 @@ function softGameStart() {
 document.addEventListener('DOMContentLoaded', () => {
     startOptions()
 })
-
-
-let loops = 0
-
-function gameLOop() {
-    animate(gameLOop)
-    loops++
-}
-
-function drawPictureLoop() {
-    if (loops%2 === 0) {
-        // do current logic
-        
-    }
-}

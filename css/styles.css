@@ -49,7 +49,7 @@ canvas {
     position: absolute;
     left: 0;
     right: 0;
-    margin: 10% auto 0 auto;
+    margin: 6% auto 0 auto;
     display: grid;
     justify-content: center;
     align-items: center;
@@ -80,14 +80,14 @@ button:hover,:focus {
     padding: 10px;
 }
 
-
-.winScreen {
-    
+.startMenu, .winScreen {
+    margin-top: 8%;
 }
 
 
+
 .info {
-    color: white;
+    color: gold;
     width: 600;
     position: absolute;
     display: flex;
