@@ -87,7 +87,7 @@ button:hover,:focus {
 
 
 .info {
-    color: gold;
+    color: white;
     width: 600;
     position: absolute;
     display: flex;

@@ -17,6 +17,8 @@ const winScreen = document.querySelector('.winScreen')
 const playAgain = document.getElementById('pAgainBtn')
 const statBar = document.querySelector('.info')
 
+
+
 // let for init convenience -- i know its dangerous
 let pillars = []
 let interactX = []
@@ -487,27 +489,6 @@ function gameStart() {
     levelHandler()
 
 }
-
-function softGameStart() {
-    // pillars = []
-    // interactX = []
-    // interactY = []
-    // level = 0
-    // phase = 0
-    // round = 1
-    // speed = 15
-    inPlay = false
-    // randomX = Math.floor(Math.random() * 300) + 100
-    // randomY = Math.floor(Math.random() * 200) + 50
-    // dot = new Player(randomX, randomY, 30, 30, dotColor)
-    // inPlay = true
-    // dot.alive = true
-    // statBar.style.display = 'flex'
-    ctx.clearRect(0,0,canvas.width,canvas.height)
-    startOptions()
-    
-}
-
 
 
 
