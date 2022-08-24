@@ -27,6 +27,36 @@ let speed = 15
 let level = 0
 let phase = 0
 
+
+// Darkmode
+let beamInitColor = 'rgba(255,215,0,0.4)'
+let beamActColor = 'red'
+let dotColor = 'white'
+let darkMode = false
+
+const darkSpan = document.querySelector('.darkSpan')
+darkSpan.addEventListener('click', () => {
+    if (!darkMode) {
+        darkMode = true
+        darkSpan.innerText = 'ON'
+        darkSpan.style.color = 'gold'
+        dotColor = 'gold'
+        beamInitColor = 'rgba(255,255,255,0.4)'
+        beamActColor = 'red'
+        canvas.style.backgroundColor = 'black'
+    } else if (darkMode) {
+        darkMode = false
+        darkSpan.innerText = 'OFF'
+        darkSpan.style.color = 'white'
+        beamInitColor = 'rgba(255,215,0,0.4)'
+        beamActColor = 'red'
+        dotColor = 'white'
+        canvas.style.backgroundColor = 'midnightBlue'
+
+    }
+})
+
+
 // Diff Mod
 let difficulty = 1
 let timeScale = 1
@@ -151,7 +181,7 @@ class Pillar extends Player {
 // dot init for gameloop.
 let randomX = Math.floor(Math.random() * 300) + 100
 let randomY = Math.floor(Math.random() * 200) + 50
-let dot = new Player(randomX, randomY, 30, 30, 'white')
+let dot = new Player(randomX, randomY, 30, 30, dotColor)
 
 // Named Functions 
 
@@ -209,13 +239,14 @@ function animate() {
     if(inPlay) {
         requestAnimationFrame(animate)
         ctx.clearRect(0,0,canvas.width,canvas.height)
+        dot.render()
         pillars.forEach(pillar => {
             pillar.render()
         })
-        dot.render()
         if(!dot.alive) {
             setTimeout(() => {
             location.reload()
+            
     
             }, 1500) 
 
@@ -234,7 +265,7 @@ function dangerZone(columns, rows) {
     let ySpace = canvas.height/rows
     let columnCountInc = 0
     let rowCountInc = 0
-    let color = 'rgba(255,215,0,0.4)'
+    let color = beamInitColor
     for (let i = 0; i < columns; i++) {
         const x = Math.floor(Math.random() * xSpace + (xSpace * columnCountInc))
         const y = 0
@@ -284,7 +315,7 @@ function timer(secs) {
     let time = secs * 1000
     setTimeout(() => {
         pillars.forEach(pillar => {
-            pillar.color = 'red'
+            pillar.color = beamActColor
             if (audioOn) {
                 laserActivate.play()
             }
@@ -409,7 +440,6 @@ function zonePush(start, end, axis) {
 function isHit() {
         for (let i = dot.x; i < dot.x + dot.width; i++) {
             if(interactX.includes(i)) {
-                // console.log('Hit x')
                 if (!deathless) {
                     if (audioOn) {
                         playerKilled.play()
@@ -422,7 +452,6 @@ function isHit() {
         }
         for (let i = dot.y; i < dot.y + dot.height; i++) {
             if(interactY.includes(i)) {
-                // console.log('Hit y')
                 if (!deathless) {
                     if (audioOn) {
                         playerKilled.play()
@@ -446,13 +475,26 @@ function gameStart() {
     speed = 15
     randomX = Math.floor(Math.random() * 300) + 100
     randomY = Math.floor(Math.random() * 200) + 50
-    dot = new Player(randomX, randomY, 30, 30, 'white')
+    dot = new Player(randomX, randomY, 30, 30, dotColor)
     inPlay = true
     dot.alive = true
     statBar.style.display = 'flex'
     animate()
     levelHandler(round)
 
+}
+
+function softGameStart() {
+    pillars = []
+    interactX = []
+    interactY = []
+    level = 0
+    phase = 0
+    round = 1
+    speed = 15
+    inPlay = false
+    ctx.clearRect(0,0,canvas.width,canvas.height)
+    
 }
 
 
