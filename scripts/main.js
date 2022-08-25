@@ -132,11 +132,11 @@ mSpan.addEventListener('click', () => {
 })
 
 // https://opengameart.org/content/theremin-laser-sfx
-let laserDown = new Audio('media/sounds/Smooth 7.wav')
-let laserActivate = new Audio('media/sounds/Space 5.wav')
-let playerKilled = new Audio('media/sounds/Space 1.wav')
+const laserDown = new Audio('media/sounds/Smooth 7.wav')
+const laserActivate = new Audio('media/sounds/Space 5.wav')
+const playerKilled = new Audio('media/sounds/Space 1.wav')
 // https://opengameart.org/content/victory-2
-let victory = new Audio('media/sounds/Victory!.wav')
+const victory = new Audio('media/sounds/Victory!.wav')
 
 // Anon
 
@@ -200,7 +200,10 @@ function startOptions() {
     startMenu.style.display = "grid"
     startButton.addEventListener('click', () => {
         startMenu.style.display = 'none'
+        // inPlay = true
         gameStart()
+        animate()
+        levelHandler()
     })
 
     optionButton.addEventListener('click', () => {
@@ -252,13 +255,7 @@ function animate() {
         pillars.forEach(pillar => {
             pillar.render()
         })
-        if(!dot.alive) {
-            setTimeout(() => {
-            location.reload()
-    
-            }, 1500) 
-
-        }
+        
     }
 
 }
@@ -450,8 +447,9 @@ function isHit() {
                         playerKilled.play()
                     }
                     dot.alive = false
+                    // location.reload()
+                    gameStart()
                 }
-                return
                 
             }
         }
@@ -462,8 +460,9 @@ function isHit() {
                         playerKilled.play()
                     }
                     dot.alive = false
+                    // location.reload()
+                    gameStart()
                 }
-                return
                 
             }
         }
@@ -484,8 +483,7 @@ function gameStart() {
     inPlay = true
     dot.alive = true
     statBar.style.display = 'flex'
-    animate()
-    levelHandler()
+    
 
 }
 

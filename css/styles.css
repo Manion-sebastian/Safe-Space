@@ -23,6 +23,7 @@ body {
     display: grid;
     justify-content: center;
     align-content: center;
+    font-size: 30px;
 }
 
 .screen {
@@ -54,8 +55,8 @@ canvas {
     display: grid;
     justify-content: center;
     align-items: center;
-    width: 300px;
-    height: 150px;
+    width: 600px;
+    height: 300px;
     
 }
 
@@ -64,7 +65,7 @@ canvas {
 button {
     background-color: white;
     color: midnightblue;
-    font-size: 20px;
+    font-size: 40px;
     font-weight: bold;
     border: none;
     padding: 5px;
@@ -79,13 +80,17 @@ button:hover,:focus {
 .startMenu, .instructionsMenu, .optionsMenu, .winScreen {
     display: none;
     padding: 10px;
+    margin-top: 150px;
 }
 
 .startMenu, .winScreen {
-    /* margin-top: 8%; */
+    font-size: 45px;
+    margin-top: 150px;
 }
 
-
+.instructionsMenu {
+    margin-top: 150px;
+}
 
 .info {
     color: white;
