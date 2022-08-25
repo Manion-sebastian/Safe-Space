@@ -43,6 +43,7 @@ canvas {
 
 }
 
+/* base screen functionalities settings. */
 
 .startMenu, .optionsMenu, .instructionsMenu, .winScreen, .lossScreen {
     text-align: center;
@@ -76,6 +77,7 @@ button:hover,:focus {
     color: gold;
 }
 
+/* centering for screen size */
 
 .startMenu, .instructionsMenu, .optionsMenu, .winScreen, .lossScreen {
     display: none;
@@ -85,7 +87,6 @@ button:hover,:focus {
 
 .startMenu, .winScreen, .lossScreen {
     font-size: 45px;
-    margin-top: 150px;
 }
 
 
