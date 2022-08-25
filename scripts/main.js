@@ -54,7 +54,6 @@ darkSpan.addEventListener('click', () => {
         beamInitColor = 'rgba(255,215,0,0.6)'
         beamActColor = 'red'
         canvas.style.backgroundColor = 'midnightBlue'
-
     }
 })
 
@@ -75,7 +74,6 @@ diffSpan.addEventListener('click', () => {
         diffSpan.style.color = 'white'
         difficulty = false
     }
-
 })
 
 
@@ -94,12 +92,10 @@ dSpan.addEventListener('click', () => {
         dSpan.innerText = 'OFF'
         dSpan.style.color = 'white'
     }
-
 })
 
 // Endless
 let endless = false
-
 const eSpan = document.querySelector('.eSpan') 
 
 eSpan.addEventListener('click', () => {
@@ -112,24 +108,22 @@ eSpan.addEventListener('click', () => {
         eSpan.innerText = 'OFF'
         eSpan.style.color = 'white'
     }
-
 })
 
 // Audio
-let audioOn = true
+let audioOn = false
 
 const mSpan = document.querySelector('.mSpan')
 mSpan.addEventListener('click', () => {
     if (audioOn) {
         audioOn = false 
-        mSpan.innerText = 'OFF'
-        mSpan.style.color = 'gold'
-    } else if (!audioOn) {
-        audioOn = true
         mSpan.innerText = 'ON'
         mSpan.style.color = 'white'
+    } else if (!audioOn) {
+        audioOn = true
+        mSpan.innerText = 'OFF'
+        mSpan.style.color = 'gold'
     }
-    
 })
 
 // https://opengameart.org/content/theremin-laser-sfx
@@ -152,8 +146,6 @@ canvas.addEventListener('click', (e) => {
 // Canvas Init
 
 const ctx = canvas.getContext('2d')
-// canvas.width = 600
-// canvas.height = 400
 canvas.width = 1200
 canvas.height = 800
 
@@ -185,8 +177,8 @@ class Pillar extends Player {
 }
 
 // dot init for gameloop.
-let randomX = Math.floor(Math.random() * 300) + 100
-let randomY = Math.floor(Math.random() * 200) + 50
+let randomX = 0
+let randomY = 0
 let dot = new Player(randomX, randomY, 30, 30, dotColor)
 
 // sprite
@@ -226,11 +218,9 @@ function startOptions() {
             instructionMenu.style.display = 'none'
             optionMenu.style.display = 'none'
             winScreen.style.display = 'none'
-            lossScreen.style.display = 'none'
-            
+            lossScreen.style.display = 'none' 
         })
-    })
-    
+    })  
 } 
 
 // pulls up win wscreen
@@ -251,31 +241,8 @@ function screenSelect(screen) {
             failure.play()
          }
          lossScreen.style.display = 'grid'
-         
     }
 }
-
-
-// function winScreenStart() {
-//     if (audioOn) {
-//         victory.play()
-//     }
-//     winScreen.style.display = 'grid'
-//     phaseUpdate.innerText = 0
-//     levelUpdate.innerText = 0
-//     statBar.style.display = 'none'
-    
-// }
-
-// function failScreen() {
-//     if (audioOn) {
-//        failure.play()
-//     }
-//     lossScreen.style.display = 'grid'
-//     phaseUpdate.innerText = 0
-//     levelUpdate.innerText = 0
-//     statBar.style.display = 'none'
-// }
 
 // animation Loop.
 
@@ -287,10 +254,8 @@ function animate() {
         ctx.drawImage(dotPicture, 0, 0, 32, 32, dot.x, dot.y, 32, 32)
         pillars.forEach(pillar => {
             pillar.render()
-        })
-        
+        }) 
     }
-
 }
 
 // creates and pushes columns to screen and to their array for coll testing.
@@ -304,6 +269,7 @@ function dangerZone(columns, rows) {
     let columnCountInc = 0
     let rowCountInc = 0
     let color = beamInitColor
+
     for (let i = 0; i < columns; i++) {
         const x = Math.floor(Math.random() * xSpace + (xSpace * columnCountInc))
         const y = 0
@@ -312,9 +278,8 @@ function dangerZone(columns, rows) {
         pillars.push(new Pillar(x,y,width,height,color))
         zonePush(x, x+width, 'x')
         columnCountInc++
-
-
     }
+
     for (let j = 0; j < rows; j++) {
         const x = 0
         const y = Math.floor(Math.random() * ySpace + (ySpace * rowCountInc))
@@ -476,39 +441,33 @@ function isHit() {
         for (let i = dot.x; i < dot.x + dot.width; i++) {
             if(interactX.includes(i)) {
                 if (!deathless) {
-                    if (audioOn) {
-                        playerKilled.play()
-                    }
                     dot.alive = false
-                    setTimeout(() => {
-                        inPlay = false
-                        ctx.clearRect(0,0,canvas.width,canvas.height)
-                        round = 1
-                        screenSelect('lose')
-
-                    }, 500)
                 }
-                
             }
         }
+
         for (let i = dot.y; i < dot.y + dot.height; i++) {
             if(interactY.includes(i)) {
                 if (!deathless) {
-                    if (audioOn) {
-                        playerKilled.play()
-                    }
-                    setTimeout(() => {
-                        inPlay = false
-                        ctx.clearRect(0,0,canvas.width,canvas.height)
-                        round = 1
-                        screenSelect('lose')
-
-                    }, 500)
+                    dot.alive = false
                 }
-                
             }
         }
+
+        if (!dot.alive) {
+            if (audioOn) {
+                playerKilled.play()
+            }
+            setTimeout(() => {
+                clearScreen()
+                screenSelect('lose')
+        
+            }, 1500)
+    
+        }
+
     }
+    
 
 // starts game
 function gameStart() {
@@ -519,8 +478,8 @@ function gameStart() {
     phase = 0
     round = 1
     speed = 15
-    randomX = Math.floor(Math.random() * 300) + 100
-    randomY = Math.floor(Math.random() * 200) + 50
+    randomX = Math.floor(Math.random() * 1000) + 100
+    randomY = Math.floor(Math.random() * 500) + 50
     dot = new Player(randomX, randomY, 30, 30, dotColor)
     inPlay = true
     dot.alive = true
@@ -528,7 +487,11 @@ function gameStart() {
 
 }
 
-
+function clearScreen() {
+    inPlay = false
+    ctx.clearRect(0,0,canvas.width,canvas.height)
+    round = 1
+}
 
 // Headache Reducer. :)
 
