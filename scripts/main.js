@@ -120,13 +120,13 @@ let audioOn = false
 const mSpan = document.querySelector('.mSpan')
 mSpan.addEventListener('click', () => {
     if (!audioOn) {
-        endless = true
-        eSpan.innerText = 'ON'
-        eSpan.style.color = 'gold'
+        audioOn = true
+        mSpan.innerText = 'ON'
+        mSpan.style.color = 'gold'
     } else if (audioOn) {
-        endless = false
-        eSpan.innerText = 'OFF'
-        eSpan.style.color = 'white'
+        audioOn = false
+        mSpan.innerText = 'OFF'
+        mSpan.style.color = 'white'
     }
 })
 
