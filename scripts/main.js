@@ -32,6 +32,9 @@ let phase = 0
 
 // MISC FUNCTIONALITY START --------------
 
+// Misc func is init of several different things, 
+// and DOM properties. 
+
 // OPTION FUNCTIONALITY START --------------
 
 // Darkmode
@@ -139,10 +142,12 @@ const failure = new Audio('media/sounds/Game Over II ~ v1.mp3')
 
 // OPTION FUNCTIONALITY END --------------
 
-// CANVAS FUNCTIONALITY START --------------
-// Anon dev check
+// Opt Func uses DOM and if statements to
+// modify spans as well as allowing events to occur
 
-document.addEventListener('keydown', movementHandler)
+// CANVAS FUNCTIONALITY START --------------
+
+// Anon dev check
 // canvas.addEventListener('click', (e) => {
 //     console.log(e.offsetX, e.offsetY)
 //     console.log(round)
@@ -155,6 +160,8 @@ canvas.width = 1200
 canvas.height = 800
 
 // CANVAS FUNCTIONALITY END --------------
+
+// Can Func is the init of canvas width and height
 
 // OBJECT FUNCTIONALITY START --------------
 
@@ -193,6 +200,9 @@ let dotPicture = new Image()
 dotPicture.src = 'media/art/playerSprite.png'
 
 // OBJECT FUNCTIONALITY END --------------
+
+// Obj Func has the class player and an extended class pillar,
+// it inits dot and her image here, allowing the function for initialization to work futher down.
 
 // SCREEN FUNCTIONALITY START --------------
 
@@ -261,6 +271,9 @@ function clearScreen() {
 }
 
 // SCREEN FUNCTIONALITY END --------------
+
+// Scr Func controls the screens for the game, 
+// options instructions and play. as well as win and lose
 
 // GAMELOOP FUNCTIONALITY START --------------
 
@@ -357,6 +370,8 @@ function timer(secs) {
 }
 
 // handles the movement of character. 
+
+document.addEventListener('keydown', movementHandler)
 
 function movementHandler(e) {    
     if (!dot.alive) {
@@ -511,7 +526,17 @@ function gameStart() {
 
 // GAMELOOP FUNCTIONALITY END --------------
 
-// Headache Reducer. :)
+// Gmlp Func controls the game. 
+// 1. startOpt calls gameStart animate and levelHnd,
+// 2. gmSt inits everything again, brings up stat bar
+// 3. animte loop begins
+// 4. levelHnd controls what level, the beams and the time.
+// 5. dangerZone creates random beams, pushes them to an array that is checked against dots position. 
+// 6. timer calls the next round as long as dot is not hit
+// 7. is hit trips the game to off and dot to dead. 
+// 9. functionalities for game end or win are triggered.
+
+// Headache Reducer. :) thanks weston for showing this. 
 
 document.addEventListener('DOMContentLoaded', () => {
     startOptions()
