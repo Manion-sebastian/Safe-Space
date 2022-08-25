@@ -371,6 +371,8 @@ function timer(secs) {
 // handles the movement of character. 
 
 document.addEventListener('keydown', movementHandler)
+document.addEventListener('keydown', movHandler)
+
 
 function movementHandler(e) {    
     if (!dot.alive) {
@@ -392,6 +394,25 @@ function movementHandler(e) {
     }
     
 }
+
+function movHandler(e) {
+    switch(e.keyCode) {
+        case(38):
+            dot.y -= speed
+            break
+        case(37):
+            dot.x -= speed
+            break
+        case(40):
+            dot.y += speed
+            break
+        case(39):
+            dot.x += speed
+            break
+    }
+}
+
+
 
 // handles flow of game. 
 
