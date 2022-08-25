@@ -14,6 +14,7 @@ const seconds = document.querySelector('#seconds')
 const phaseUpdate = document.getElementById('phase')
 const levelUpdate = document.getElementById('level')
 const winScreen = document.querySelector('.winScreen')
+const lossScreen = document.querySelector('.lossScreen')
 const playAgain = document.getElementById('pAgainBtn')
 const statBar = document.querySelector('.info')
 
@@ -32,7 +33,7 @@ let phase = 0
 
 
 // Darkmode
-let beamInitColor = 'rgba(255,215,0,0.4)'
+let beamInitColor = 'rgba(255,215,0,0.6)'
 let beamActColor = 'red'
 let dotColor = 'rgba(0,0,0,0)'
 let darkMode = false
@@ -43,14 +44,14 @@ darkSpan.addEventListener('click', () => {
         darkMode = true
         darkSpan.innerText = 'ON'
         darkSpan.style.color = 'gold'
-        beamInitColor = 'rgba(255,255,255,0.4)'
+        beamInitColor = 'rgba(255,255,255,0.6)'
         beamActColor = 'red'
         canvas.style.backgroundColor = 'black'
     } else if (darkMode) {
         darkMode = false
         darkSpan.innerText = 'OFF'
         darkSpan.style.color = 'white'
-        beamInitColor = 'rgba(255,215,0,0.4)'
+        beamInitColor = 'rgba(255,215,0,0.6)'
         beamActColor = 'red'
         canvas.style.backgroundColor = 'midnightBlue'
 
@@ -223,6 +224,7 @@ function startOptions() {
             instructionMenu.style.display = 'none'
             optionMenu.style.display = 'none'
             winScreen.style.display = 'none'
+            lossScreen.style.display = 'none'
             
         })
     })
@@ -238,10 +240,28 @@ function winScreenStart() {
     phaseUpdate.innerText = 0
     levelUpdate.innerText = 0
     statBar.style.display = 'none'
-    playAgain.addEventListener('click', () => {
-        winScreen.style.display = 'none'
-        gameStart()
-    })
+    // playAgain.addEventListener('click', () => {
+    //     winScreen.style.display = 'none'
+    //     gameStart()
+    //     animate()
+    //     levelHandler()
+    // })
+}
+
+function failScreen() {
+    if (audioOn) {
+        // play failure music
+    }
+    lossScreen.style.display = 'grid'
+    phaseUpdate.innerText = 0
+    levelUpdate.innerText = 0
+    statBar.style.display = 'none'
+    // playAgain.addEventListener('click', () => {
+    //     lossScreen.style.display = 'none'
+    //     gameStart()
+    //     animate()
+    //     levelHandler()
+    // })
 }
 
 // animation Loop.
@@ -447,8 +467,13 @@ function isHit() {
                         playerKilled.play()
                     }
                     dot.alive = false
-                    // location.reload()
-                    gameStart()
+                    setTimeout(() => {
+                        inPlay = false
+                        ctx.clearRect(0,0,canvas.width,canvas.height)
+                        round = 1
+                        failScreen()
+
+                    }, 500)
                 }
                 
             }
@@ -459,9 +484,13 @@ function isHit() {
                     if (audioOn) {
                         playerKilled.play()
                     }
-                    dot.alive = false
-                    // location.reload()
-                    gameStart()
+                    setTimeout(() => {
+                        inPlay = false
+                        ctx.clearRect(0,0,canvas.width,canvas.height)
+                        round = 1
+                        failScreen()
+
+                    }, 500)
                 }
                 
             }
@@ -483,7 +512,6 @@ function gameStart() {
     inPlay = true
     dot.alive = true
     statBar.style.display = 'flex'
-    
 
 }
 

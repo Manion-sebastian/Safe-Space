@@ -44,7 +44,7 @@ canvas {
 }
 
 
-.startMenu, .optionsMenu, .instructionsMenu, .winScreen {
+.startMenu, .optionsMenu, .instructionsMenu, .winScreen, .lossScreen {
     text-align: center;
     font-family: 'Fjalla One', sans-serif;
     color: white;
