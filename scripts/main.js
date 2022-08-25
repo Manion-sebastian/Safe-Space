@@ -1,7 +1,7 @@
 
+// MISC FUNCTIONALITY START --------------
 
-// DOM Init Farm
-// Named
+// DOM Selectors
 const canvas = document.querySelector('canvas')
 const startMenu = document.querySelector('.startMenu')
 const optionMenu = document.querySelector('.optionsMenu')
@@ -20,7 +20,7 @@ const statBar = document.querySelector('.info')
 
 
 
-// let for init convenience -- i know its dangerous
+// init for base components.
 let pillars = []
 let interactX = []
 let interactY = []
@@ -30,7 +30,9 @@ let speed = 15
 let level = 0
 let phase = 0
 
+// MISC FUNCTIONALITY START --------------
 
+// OPTION FUNCTIONALITY START --------------
 
 // Darkmode
 let beamInitColor = 'rgba(255,215,0,0.6)'
@@ -135,13 +137,16 @@ const victory = new Audio('media/sounds/Victory!.wav')
 // https://opengameart.org/content/game-over-theme-ii
 const failure = new Audio('media/sounds/Game Over II ~ v1.mp3')
 
-// Anon
+// OPTION FUNCTIONALITY END --------------
+
+// CANVAS FUNCTIONALITY START --------------
+// Anon dev check
 
 document.addEventListener('keydown', movementHandler)
-canvas.addEventListener('click', (e) => {
-    console.log(e.offsetX, e.offsetY)
-    console.log(round)
-})
+// canvas.addEventListener('click', (e) => {
+//     console.log(e.offsetX, e.offsetY)
+//     console.log(round)
+// })
 
 // Canvas Init
 
@@ -149,6 +154,9 @@ const ctx = canvas.getContext('2d')
 canvas.width = 1200
 canvas.height = 800
 
+// CANVAS FUNCTIONALITY END --------------
+
+// OBJECT FUNCTIONALITY START --------------
 
 // Class Init Farm
 
@@ -170,6 +178,7 @@ class Player {
 }
 
 // for naming purposes, has no diff from player.
+
 class Pillar extends Player {
     constructor(x,y,width,height,color) {
         super(x,y,width,height,color)
@@ -180,13 +189,12 @@ class Pillar extends Player {
 let randomX = 0
 let randomY = 0
 let dot = new Player(randomX, randomY, 30, 30, dotColor)
-
-// sprite
-
 let dotPicture = new Image()
 dotPicture.src = 'media/art/playerSprite.png'
 
-// Named Functions 
+// OBJECT FUNCTIONALITY END --------------
+
+// SCREEN FUNCTIONALITY START --------------
 
 // start screen.
 
@@ -243,6 +251,18 @@ function screenSelect(screen) {
          lossScreen.style.display = 'grid'
     }
 }
+
+// clears screen for other functions
+
+function clearScreen() {
+    inPlay = false
+    ctx.clearRect(0,0,canvas.width,canvas.height)
+    round = 1
+}
+
+// SCREEN FUNCTIONALITY END --------------
+
+// GAMELOOP FUNCTIONALITY START --------------
 
 // animation Loop.
 
@@ -487,11 +507,9 @@ function gameStart() {
 
 }
 
-function clearScreen() {
-    inPlay = false
-    ctx.clearRect(0,0,canvas.width,canvas.height)
-    round = 1
-}
+
+
+// GAMELOOP FUNCTIONALITY END --------------
 
 // Headache Reducer. :)
 
