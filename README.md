@@ -1,5 +1,9 @@
 # **Safe Space**
 
+### Link to game
+https://manion-sebastian.github.io/Safe-Space/
+
+
 ### Find your safe space or ~~die trying~~ try again. 
 
 Safe Space is a modern take on the traditional Bullet hell. You play as the excitable young Dot, just trying to get home. Unfortunately Dot is trapped in a tower of shifting rows and columns. Does dot have what it takes to get home in one piece? Well thats entirely up to you! 
