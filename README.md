@@ -33,3 +33,29 @@ Vanilla Js, HTML, and CSS : Cavnas Project.
 * Issues with clipping and refresh timers - potentially use a grid system for movement
 * Dot is too large for complex floor patterns - ask Dot how they feel about getting shrunk?
 * Gameplay loop is not rewarding, or fun - give Dot a gun, maybe a sword? 
+
+### Assets Used
+
+#### Theremin Laser SFX
+#### Zane Little Music
+https://opengameart.org/content/theremin-laser-sfx
+* Space 1.wav
+* Space 5.wav
+* Smooth 7.wav
+
+#### Victory!
+#### jkfite01
+https://opengameart.org/content/victory-2
+* Victory!.wav
+
+#### Game Over Theme II
+#### CleytonKauffman
+https://opengameart.org/content/game-over-theme-ii
+* Game Over II ~ v1.mp3
+
+#### Space Backgrounds
+#### Rawdanitsu
+https://opengameart.org/content/space-backgrounds-1
+* image5.jpg
+
+
