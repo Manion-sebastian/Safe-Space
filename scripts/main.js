@@ -138,6 +138,8 @@ const laserActivate = new Audio('media/sounds/Space 5.wav')
 const playerKilled = new Audio('media/sounds/Space 1.wav')
 // https://opengameart.org/content/victory-2
 const victory = new Audio('media/sounds/Victory!.wav')
+// https://opengameart.org/content/game-over-theme-ii
+const failure = new Audio('media/sounds/Game Over II ~ v1.mp3')
 
 // Anon
 
@@ -232,37 +234,48 @@ function startOptions() {
 } 
 
 // pulls up win wscreen
-function winScreenStart() {
-    if (audioOn) {
-        victory.play()
-    }
-    winScreen.style.display = 'grid'
+
+function screenSelect(screen) {
     phaseUpdate.innerText = 0
     levelUpdate.innerText = 0
     statBar.style.display = 'none'
-    // playAgain.addEventListener('click', () => {
-    //     winScreen.style.display = 'none'
-    //     gameStart()
-    //     animate()
-    //     levelHandler()
-    // })
+
+    if (screen === 'win') {
+        if (audioOn) {
+            victory.play()
+        }
+        winScreen.style.display = 'grid'
+
+    } else if (screen === 'lose') {
+        if (audioOn) {
+            failure.play()
+         }
+         lossScreen.style.display = 'grid'
+         
+    }
 }
 
-function failScreen() {
-    if (audioOn) {
-        // play failure music
-    }
-    lossScreen.style.display = 'grid'
-    phaseUpdate.innerText = 0
-    levelUpdate.innerText = 0
-    statBar.style.display = 'none'
-    // playAgain.addEventListener('click', () => {
-    //     lossScreen.style.display = 'none'
-    //     gameStart()
-    //     animate()
-    //     levelHandler()
-    // })
-}
+
+// function winScreenStart() {
+//     if (audioOn) {
+//         victory.play()
+//     }
+//     winScreen.style.display = 'grid'
+//     phaseUpdate.innerText = 0
+//     levelUpdate.innerText = 0
+//     statBar.style.display = 'none'
+    
+// }
+
+// function failScreen() {
+//     if (audioOn) {
+//        failure.play()
+//     }
+//     lossScreen.style.display = 'grid'
+//     phaseUpdate.innerText = 0
+//     levelUpdate.innerText = 0
+//     statBar.style.display = 'none'
+// }
 
 // animation Loop.
 
@@ -441,7 +454,7 @@ function levelHandler() {
             inPlay = false
             ctx.clearRect(0,0,canvas.width,canvas.height)
             round = 1
-            winScreenStart()
+            screenSelect('win')
                 break
         }
     }
@@ -471,7 +484,7 @@ function isHit() {
                         inPlay = false
                         ctx.clearRect(0,0,canvas.width,canvas.height)
                         round = 1
-                        failScreen()
+                        screenSelect('lose')
 
                     }, 500)
                 }
@@ -488,7 +501,7 @@ function isHit() {
                         inPlay = false
                         ctx.clearRect(0,0,canvas.width,canvas.height)
                         round = 1
-                        failScreen()
+                        screenSelect('lose')
 
                     }, 500)
                 }
