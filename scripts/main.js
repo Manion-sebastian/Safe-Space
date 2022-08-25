@@ -149,8 +149,10 @@ canvas.addEventListener('click', (e) => {
 // Canvas Init
 
 const ctx = canvas.getContext('2d')
-canvas.width = 600
-canvas.height = 400
+// canvas.width = 600
+// canvas.height = 400
+canvas.width = 1200
+canvas.height = 800
 
 
 // Class Init Farm
@@ -275,7 +277,7 @@ function dangerZone(columns, rows) {
     for (let i = 0; i < columns; i++) {
         const x = Math.floor(Math.random() * xSpace + (xSpace * columnCountInc))
         const y = 0
-        const width = 30
+        const width = 60
         const height = canvas.height
         pillars.push(new Pillar(x,y,width,height,color))
         zonePush(x, x+width, 'x')
@@ -287,7 +289,7 @@ function dangerZone(columns, rows) {
         const x = 0
         const y = Math.floor(Math.random() * ySpace + (ySpace * rowCountInc))
         const width = canvas.width
-        const height = 30
+        const height = 60
         pillars.push(new Pillar(x,y,width,height,color))
         zonePush(y, y+height, 'y' )
         rowCountInc++
@@ -348,9 +350,6 @@ function movementHandler(e) {
     switch (e.key) {
         case('w'):
             dot.y -= speed
-            break
-        case('w' && 'space'):
-            dot.y -= speed + 20
             break
         case('a'):
             dot.x -= speed
