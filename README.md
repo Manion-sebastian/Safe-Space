@@ -33,32 +33,35 @@ Vanilla Js, HTML, and CSS : Cavnas Project.
 * Collapsing floors 
 * Dot gets a dash!
 
-### Potential Roadblocks 
+### **Potential Roadblocks** 
 * Issues with clipping and refresh timers - potentially use a grid system for movement
 * Dot is too large for complex floor patterns - ask Dot how they feel about getting shrunk?
 * Gameplay loop is not rewarding, or fun - give Dot a gun, maybe a sword? 
 
-### Assets Used
+### **Post Project Reflection** 
+My takeaway is Canvas is a tool I will not be using again, hopefully. I should also come up with goals that stick to my level of understanding. basic functions not game altering functions. I should need to make sure from the beginning that my screen zoom is not currently on, as that created an issue upon turning it off. My functions should all have parameters so I can implement DRY better, and I should have a linear step to calling them. 
 
-#### Theremin Laser SFX
-#### Zane Little Music
+### **Assets Used**
+
+#### Name: Theremin Laser SFX
+#### Creator: Zane Little Music
 https://opengameart.org/content/theremin-laser-sfx
 * Space 1.wav
 * Space 5.wav
 * Smooth 7.wav
-
-#### Victory!
-#### jkfite01
+---
+#### Name: Victory!
+#### Creator: jkfite01
 https://opengameart.org/content/victory-2
 * Victory!.wav
-
-#### Game Over Theme II
-#### CleytonKauffman
+---
+#### Name: Game Over Theme II
+#### Creator: CleytonKauffman
 https://opengameart.org/content/game-over-theme-ii
 * Game Over II ~ v1.mp3
-
-#### Space Backgrounds
-#### Rawdanitsu
+---
+#### Name: Space Backgrounds
+#### Creator: Rawdanitsu
 https://opengameart.org/content/space-backgrounds-1
 * image5.jpg
 
