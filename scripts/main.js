@@ -3,13 +3,21 @@
 
 // DOM Selectors
 const canvas = document.querySelector('canvas')
+
+// Menus Start -----
 const startMenu = document.querySelector('.startMenu')
 const optionMenu = document.querySelector('.optionsMenu')
 const instructionMenu = document.querySelector('.instructionsMenu')
+// Menus End -----
+
+// Buttons Start -----
 const startButton = document.getElementById('play')
 const optionButton = document.getElementById('options')
 const instructionButton = document.getElementById('inst')
 const mainMenuButton = document.querySelector('#mainMenuButton')
+// Buttons End -----
+
+// Updates Start -----
 const seconds = document.querySelector('#seconds')
 const phaseUpdate = document.getElementById('phase')
 const levelUpdate = document.getElementById('level')
@@ -17,7 +25,7 @@ const winScreen = document.querySelector('.winScreen')
 const lossScreen = document.querySelector('.lossScreen')
 const playAgain = document.getElementById('pAgainBtn')
 const statBar = document.querySelector('.info')
-
+// Updates End -----
 
 
 // init for base components.
@@ -29,8 +37,10 @@ let round = 1
 let speed = 15
 let level = 0
 let phase = 0
+let cWidth = 1200
+let cHeight = 600
 
-// MISC FUNCTIONALITY START --------------
+// MISC FUNCTIONALITY END --------------
 
 // Misc func is init of several different things, 
 // and DOM properties. 
